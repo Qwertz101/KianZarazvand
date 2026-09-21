@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kian Zarazvand — Mechanical Engineering</title>
+<meta name="description" content="Mechanical engineering portfolio of Kian Zarazvand — Formula SAE suspension, FIRST Robotics mechanisms, cryostat hardware and robotic arms.">
+<meta property="og:title" content="Kian Zarazvand — Mechanical Engineering">
+<meta property="og:description" content="Suspension, mechanisms and cryostat hardware, designed and built in house.">
+<meta property="og:image" content="images/control-arm.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;600&family=JetBrains+Mono:wght@400;450&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="nav__brand mono" href="#top">KZ</a>
+  <nav class="nav__links" aria-label="Sections">
+    <a class="nav__link" href="#fsae">Formula SAE</a>
+    <a class="nav__link" href="#lab">Research</a>
+    <a class="nav__link" href="#first">FIRST Robotics</a>
+    <a class="nav__link" href="#leadership">Leadership</a>
+    <a class="nav__link" href="#more">Contact</a>
+  </nav>
+  <a class="nav__cta" href="mailto:kianzarazvand@gmail.com">Email</a>
+</header>
+
+<main class="page" id="boards"></main>
+
+<footer class="footer mono">BS Mechanical Engineering · University of California, Riverside · expected June 2029 · Southern California</footer>
+
+<div class="scrim" id="scrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <button type="button" class="sheet__close" id="sheet-close" aria-label="Close">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg>
+    </button>
+    <div class="sheet__head">
+      <p class="eyebrow eyebrow--accent" id="sheet-eyebrow"></p>
+      <h2 class="display-lg" id="sheet-title"></h2>
+      <p class="mono sheet__meta" id="sheet-meta"></p>
+    </div>
+    <div class="gallery">
+      <div class="media media--lg" id="sheet-media"></div>
+      <div class="gallery__strip" id="sheet-thumbs" hidden></div>
+      <p class="mono gallery__count" id="sheet-count"></p>
+    </div>
+    <p class="body sheet__lead" id="sheet-lead"></p>
+    <div class="sheet__cols">
+      <div>
+        <p class="eyebrow sheet__label" id="sheet-label-a">Design elements</p>
+        <ul class="bullets" id="sheet-design"></ul>
+      </div>
+      <div>
+        <p class="eyebrow sheet__label" id="sheet-label-b">Functionality</p>
+        <ul class="bullets" id="sheet-function"></ul>
+      </div>
+    </div>
+    <ul class="chips chips--footer" id="sheet-tags"></ul>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
