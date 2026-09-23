@@ -7,25 +7,57 @@
 <meta name="description" content="Mechanical engineering portfolio of Kian Zarazvand — Formula SAE suspension, FIRST Robotics mechanisms, cryostat hardware and robotic arms.">
 <meta property="og:title" content="Kian Zarazvand — Mechanical Engineering">
 <meta property="og:description" content="Suspension, mechanisms and cryostat hardware, designed and built in house.">
-<meta property="og:image" content="images/control-arm.jpg">
+<meta property="og:image" content="images/wigglegram.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;600&family=JetBrains+Mono:wght@400;450&display=swap">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
 
 <header class="nav">
   <a class="nav__brand mono" href="#top">KZ</a>
   <nav class="nav__links" aria-label="Sections">
+    <a class="nav__link" href="#top">About</a>
     <a class="nav__link" href="#fsae">Formula SAE</a>
     <a class="nav__link" href="#lab">Research</a>
     <a class="nav__link" href="#first">FIRST Robotics</a>
     <a class="nav__link" href="#leadership">Leadership</a>
     <a class="nav__link" href="#more">Contact</a>
   </nav>
-  <a class="nav__cta" href="mailto:kianzarazvand@gmail.com">Email</a>
+  <a class="nav__cta" href="Kian-Zarazvand-Portfolio.pdf" download>
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>PDF
+  </a>
 </header>
+
+<section class="intro" id="top">
+  <div class="intro__text">
+    <p class="eyebrow eyebrow--accent">Mechanical engineering · UC Riverside</p>
+    <h1 class="display-xl">Kian Zarazvand</h1>
+    <p class="intro__lead">I design suspension, mechanisms and cryostat hardware — then build them in house and find out what breaks.</p>
+    <p class="intro__body">Suspension engineer on UCR Formula SAE, mechanical engineer in the Dark Matter &amp; Neutrino Lab, and former captain and CAD lead of FIRST Robotics Team 6560, which I still mentor. Off the clock: early-2000s thrillers and freestyle street dance.</p>
+    <dl class="intro__facts">
+      <div><dt>Degree</dt><dd>BS Mechanical Engineering, 2029</dd></div>
+      <div><dt>GPA</dt><dd>3.83</dd></div>
+      <div><dt>Based in</dt><dd>Riverside &amp; Irvine, CA</dd></div>
+    </dl>
+    <div class="intro__actions">
+      <a class="btn btn--accent" href="Kian-Zarazvand-Portfolio.pdf" download>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Export site to PDF
+      </a>
+      <a class="btn" href="mailto:kianzarazvand@gmail.com">kianzarazvand@gmail.com</a>
+    </div>
+  </div>
+  <figure class="intro__photo">
+    <video autoplay muted loop playsinline preload="auto" poster="images/wigglegram.jpg" aria-label="Wigglegram of Kian Zarazvand leaning on a lab bench in the team shop">
+      <source src="video/wigglegram.mp4" type="video/mp4">
+    </video>
+  </figure>
+  <a class="intro__scroll" href="#fsae" aria-label="Scroll to the work">
+    <span class="mono">The work</span>
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+  </a>
+</section>
 
 <main class="page" id="boards"></main>
 
@@ -61,6 +93,7 @@
   </div>
 </div>
 
-<script src="script.js"></script>
+<script src="data.js?v=3"></script>
+<script src="script.js?v=3"></script>
 </body>
 </html>

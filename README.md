@@ -3,11 +3,14 @@
 Static site. No build step, no dependencies.
 
 ```
-index.html    markup, nav, hero bento, experience/skills/contact, modal shell
-styles.css    Vault design tokens and all layout
-script.js     ALL content (SECTIONS, LEADERSHIP, PANELS, TIMELINE) + grid, modal, gallery
-images/       optimized renders and photos (max 1600 px, ~9 MB total)
-video/        climb.mp4, xy-trainer.mp4 (H.264, faststart)
+index.html     nav, full-screen About (wigglegram), bento boards, modal shell
+styles.css     Vault design tokens and all layout
+data.js        ALL content: SECTIONS, LEADERSHIP, PANELS, TIMELINE
+script.js      BOARDS (bento layout) + tiles, modal, gallery, nav
+print.html/.js/.css   printable version of the whole site, built from data.js
+build-pdf.ps1  renders print.html -> Kian-Zarazvand-Portfolio.pdf
+images/        renders and photos (images/print/ = smaller copies for the PDF)
+video/         climb.mp4, xy-trainer.mp4, wigglegram.mp4
 ```
 
 ## Run it
@@ -20,7 +23,7 @@ python -m http.server 8000
 
 ## Edit content
 
-Everything lives in `script.js`:
+Content lives in `data.js`; the page layout lives in `BOARDS` in `script.js`:
 
 - `SECTIONS`, `LEADERSHIP`, `PANELS` — the detail that opens in the modal
   (lead paragraph, Design elements, Functionality, gallery, tags), keyed by `id`.
@@ -45,6 +48,22 @@ Tiles pack with `grid-auto-flow: dense`, so design each board in 12-wide
 blocks of equal height (e.g. 5×4 + 4×3/4×1 + 3×3/3×1) and it fills with no
 holes. On phones the grid drops to two columns and every tile keeps its
 `w:h` aspect ratio, so nothing is cropped differently than on desktop.
+
+## The PDF
+
+The "Export site to PDF" buttons download `Kian-Zarazvand-Portfolio.pdf`, a
+pre-built file, so it is one click and identical on every browser and phone.
+It is generated from `data.js`, so **after editing content, rebuild it**:
+
+```
+powershell -ExecutionPolicy Bypass -File build-pdf.ps1
+```
+
+(needs Python and Edge or Chrome). New images also need a print copy in
+`images/print/` (≤ 900 px JPEG, same base name) — the PDF uses those.
+
+When you change `styles.css`, `data.js` or `script.js`, bump the `?v=` number
+on them in `index.html` so returning visitors don't get a stale cached copy.
 
 ## Adding images
 
