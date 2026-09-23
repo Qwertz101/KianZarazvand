@@ -11,20 +11,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;600&family=JetBrains+Mono:wght@400;450&display=swap">
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 
 <header class="nav">
   <a class="nav__brand mono" href="#top">KZ</a>
-  <nav class="nav__links" aria-label="Sections">
-    <a class="nav__link" href="#top">About</a>
-    <a class="nav__link" href="#fsae">Formula SAE</a>
-    <a class="nav__link" href="#lab">Research</a>
-    <a class="nav__link" href="#first">FIRST Robotics</a>
-    <a class="nav__link" href="#leadership">Leadership</a>
-    <a class="nav__link" href="#more">Contact</a>
-  </nav>
+  <div class="route" id="route" aria-label="Where you are on the page">
+    <ol class="route__stops" id="route-stops"></ol>
+    <p class="route__now"><span class="mono route__num" id="route-num">01 / 06</span><span id="route-name">About</span></p>
+  </div>
   <a class="nav__cta" href="Kian-Zarazvand-Portfolio.pdf" download>
     <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>PDF
   </a>
@@ -49,9 +45,7 @@
     </div>
   </div>
   <figure class="intro__photo">
-    <video autoplay muted loop playsinline preload="auto" poster="images/wigglegram.jpg" aria-label="Wigglegram of Kian Zarazvand leaning on a lab bench in the team shop">
-      <source src="video/wigglegram.mp4" type="video/mp4">
-    </video>
+    <img src="images/wigglegram.jpg" alt="Kian Zarazvand leaning on a lab bench in the team shop" fetchpriority="high">
   </figure>
   <a class="intro__scroll" href="#fsae" aria-label="Scroll to the work">
     <span class="mono">The work</span>
@@ -93,7 +87,7 @@
   </div>
 </div>
 
-<script src="data.js?v=3"></script>
-<script src="script.js?v=3"></script>
+<script src="data.js?v=4"></script>
+<script src="script.js?v=4"></script>
 </body>
 </html>

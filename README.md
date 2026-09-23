@@ -10,7 +10,7 @@ script.js      BOARDS (bento layout) + tiles, modal, gallery, nav
 print.html/.js/.css   printable version of the whole site, built from data.js
 build-pdf.ps1  renders print.html -> Kian-Zarazvand-Portfolio.pdf
 images/        renders and photos (images/print/ = smaller copies for the PDF)
-video/         climb.mp4, xy-trainer.mp4, wigglegram.mp4
+video/         climb.mp4, xy-trainer.mp4
 ```
 
 ## Run it

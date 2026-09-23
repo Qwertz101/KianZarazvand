@@ -9,6 +9,7 @@
 const BOARDS = [
   {
     id: 'fsae',
+    stop: 'Formula SAE',
     eyebrow: 'UCR Formula SAE',
     title: 'Suspension',
     tiles: [
@@ -21,6 +22,7 @@ const BOARDS = [
   },
   {
     id: 'lab',
+    stop: 'Research',
     eyebrow: 'Research & robotics at UCR',
     title: 'Dark Matter & Neutrino Lab · ACM Robotics',
     tiles: [
@@ -34,6 +36,7 @@ const BOARDS = [
   },
   {
     id: 'first',
+    stop: 'FIRST Robotics',
     eyebrow: 'FIRST Robotics · Team 6560 Charging Champions',
     title: 'Competition mechanisms',
     tiles: [
@@ -66,6 +69,7 @@ const BOARDS = [
   },
   {
     id: 'leadership',
+    stop: 'Leadership',
     eyebrow: 'Leadership',
     title: 'Running the team',
     tiles: [
@@ -80,6 +84,7 @@ const BOARDS = [
   },
   {
     id: 'more',
+    stop: 'Contact',
     eyebrow: 'Personal · Skills · Contact',
     title: 'Off the clock',
     tiles: [
@@ -114,8 +119,24 @@ function mediaInner(m) {
 
 /* ---------- tiles ---------- */
 
+/* Phone layout: a 4-column grid of square cells. Each tile gets its own
+   phone span — derived from the desktop span so images keep their shape,
+   or set explicitly with m: [w, h]. Dense packing fills the gaps. */
+function phoneSpan(t) {
+  if (t.m) return t.m;
+  if (t.kind === 'img') {
+    const tall = t.h / t.w >= 1.3;
+    const mw = t.w >= 5 || (t.w >= 4 && !tall) ? 4 : 2;
+    return [mw, Math.max(1, Math.round(mw * t.h / t.w))];
+  }
+  if (t.kind === 'chips' || t.kind === 'contact') return [4, 2];
+  if (t.kind === 'text') return [t.w >= 3 ? 4 : 2, 1];
+  return [t.w >= 4 ? 4 : 2, 1];
+}
+
 function tileHtml(t) {
-  const span = 'style="--w:' + t.w + ';--h:' + t.h + '"';
+  const [mw, mh] = phoneSpan(t);
+  const span = 'style="--w:' + t.w + ';--h:' + t.h + ';--mw:' + mw + ';--mh:' + mh + '"';
   const wide = t.w >= 5 ? ' tile--wide' : '';
   const open = t.open ? ' data-open="' + t.open + '"' : '';
   const tag = t.open ? 'button type="button"' : 'div';
@@ -152,9 +173,12 @@ function tileHtml(t) {
   return '';
 }
 
-document.getElementById('boards').innerHTML = BOARDS.map((b) =>
+const STOPS = [{ id: 'top', name: 'About' }].concat(BOARDS.map((b) => ({ id: b.id, name: b.stop || b.eyebrow })));
+const pad = (n) => String(n).padStart(2, '0');
+
+document.getElementById('boards').innerHTML = BOARDS.map((b, i) =>
   '<section class="board" id="' + b.id + '">' +
-  (b.title ? '<div class="board__head"><p class="eyebrow eyebrow--accent">' + escapeHtml(b.eyebrow) + '</p><h2 class="h2">' + escapeHtml(b.title) + '</h2></div>' : '') +
+  (b.title ? '<div class="board__head"><span class="mono board__num">' + pad(i + 2) + '</span><p class="eyebrow eyebrow--accent">' + escapeHtml(b.eyebrow) + '</p><h2 class="h2">' + escapeHtml(b.title) + '</h2></div>' : '') +
   '<div class="bento">' + b.tiles.map(tileHtml).join('') + '</div></section>'
 ).join('');
 
@@ -243,16 +267,46 @@ document.addEventListener('keydown', (ev) => {
   if (ev.key === 'ArrowLeft') showMedia(currentIndex - 1);
 });
 
-/* ---------- nav ---------- */
+/* ---------- route ----------
+ * The header shows the page as one route with numbered stops. The line fills
+ * with scroll progress; the current stop is named beside it.
+ */
 
-const navLinks = [...document.querySelectorAll('.nav__link[href^="#"]')];
-const targets = navLinks.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-if ('IntersectionObserver' in window && targets.length) {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => {
-      if (!en.isIntersecting) return;
-      navLinks.forEach((a) => a.setAttribute('aria-current', a.getAttribute('href') === '#' + en.target.id ? 'true' : 'false'));
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-  targets.forEach((t) => io.observe(t));
+const stopsEl = document.getElementById('route-stops');
+stopsEl.innerHTML = STOPS.map((st, i) =>
+  '<li><a class="route__dot" href="#' + st.id + '" aria-label="Stop ' + (i + 1) + ': ' + st.name + '" title="' + pad(i + 1) + ' ' + st.name + '"></a></li>'
+).join('');
+const dots = [...stopsEl.querySelectorAll('.route__dot')];
+const stopEls = STOPS.map((st) => document.getElementById(st.id));
+const routeNum = document.getElementById('route-num');
+const routeName = document.getElementById('route-name');
+let currentStop = -1;
+
+function updateRoute() {
+  const line = window.scrollY + window.innerHeight * 0.35;
+  let i = 0;
+  stopEls.forEach((el, k) => { if (el && el.offsetTop <= line) i = k; });
+  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) i = STOPS.length - 1;
+  // fill: whole segments for passed stops plus progress toward the next one
+  const here = stopEls[i].offsetTop;
+  const next = i < STOPS.length - 1 ? stopEls[i + 1].offsetTop : here + 1;
+  const part = Math.min(1, Math.max(0, (line - here) / (next - here)));
+  stopsEl.style.setProperty('--fill', ((i + (i < STOPS.length - 1 ? part : 0)) / (STOPS.length - 1)).toFixed(4));
+  if (i === currentStop) return;
+  currentStop = i;
+  dots.forEach((d, k) => {
+    d.classList.toggle('is-passed', k <= i);
+    d.toggleAttribute('aria-current', k === i);
+  });
+  routeNum.textContent = pad(i + 1) + ' / ' + pad(STOPS.length);
+  routeName.textContent = STOPS[i].name;
 }
+
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => { updateRoute(); ticking = false; });
+}, { passive: true });
+window.addEventListener('resize', updateRoute);
+updateRoute();
