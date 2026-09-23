@@ -217,48 +217,69 @@ a:hover { color: var(--accent-200); }
 .nav__cta { display: inline-flex; align-items: center; gap: 6px; }
 
 
-/* Route — the page is one scroll with numbered stops. Dots on a line that
-   fills as you scroll; the current stop is named beside it. */
+/* Route — a map of the whole page in the header. Every stop is labeled and
+   joined by a line; passed stops fill with the accent, the current one is
+   bright. It reads as stops on one scroll, not separate pages. */
 .nav { justify-content: space-between; }
-.route { display: flex; align-items: center; gap: var(--space-4); min-width: 0; }
+.route { flex: 1; min-width: 0; display: flex; justify-content: center; }
 .route__stops {
-  --fill: 0;
-  position: relative;
   display: flex;
   align-items: center;
-  gap: 22px;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 var(--space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+  max-width: 100%;
 }
-.route__stops::before, .route__stops::after {
+.route__stops::-webkit-scrollbar { display: none; }
+/* when the line doesn't fit, it scrolls sideways — fade the edges to show it */
+.route__stops.is-overflowing {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 16px, #000 calc(100% - 28px), transparent);
+          mask-image: linear-gradient(to right, transparent, #000 16px, #000 calc(100% - 28px), transparent);
+}
+@media (max-width: 1100px) {
+  .route__stops li + li::before { width: 14px; margin: 0 5px; }
+}
+.route__stops li { display: flex; align-items: center; flex-shrink: 0; }
+/* connector from the previous stop */
+.route__stops li + li::before {
   content: "";
-  position: absolute;
-  left: 5px;
-  top: 50%;
+  width: 22px;
   height: 2px;
-  margin-top: -1px;
+  margin: 0 8px;
   border-radius: 2px;
-  width: calc(100% - 10px);
+  background: var(--line-200);
+  transition: background 200ms ease-out;
 }
-.route__stops::before { background: var(--line-200); }
-.route__stops::after { background: var(--accent-100); transform-origin: left; transform: scaleX(var(--fill)); }
-.route__stops li { position: relative; z-index: 1; display: flex; }
+.route__stops li.is-passed + li.is-passed::before { background: var(--accent-100); }
+.route__stop {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 4px;
+  border-radius: var(--radius-md);
+  color: var(--ink-300);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 160ms ease-out;
+}
+.route__stop:hover { color: var(--ink-100); }
 .route__dot {
-  position: relative;
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
   border-radius: var(--radius-full);
-  background: var(--bg-000);
   border: 2px solid var(--line-300);
-  transition: border-color 160ms ease-out, background 160ms ease-out, transform 160ms ease-out;
+  background: var(--bg-000);
+  transition: border-color 160ms ease-out, background 160ms ease-out, box-shadow 160ms ease-out;
 }
-.route__dot::after { content: ""; position: absolute; inset: -8px; }  /* bigger hit area */
-.route__dot:hover { border-color: var(--ink-100); }
-.route__dot.is-passed { border-color: var(--accent-100); background: var(--accent-100); }
-.route__dot[aria-current] { transform: scale(1.35); background: var(--bg-000); }
-.route__now { margin: 0; display: flex; align-items: baseline; gap: var(--space-2); font-size: 13px; line-height: 20px; white-space: nowrap; }
-.route__num { color: var(--ink-300); }
+.is-passed .route__dot { border-color: var(--accent-100); background: var(--accent-100); }
+.route__stop[aria-current] { color: var(--ink-100); }
+.route__stop[aria-current] .route__dot { background: var(--bg-000); box-shadow: 0 0 0 3px var(--accent-050); }
+.route__label { display: flex; align-items: baseline; gap: 5px; font-size: 13px; line-height: 20px; }
+.route__num { font-size: 10px; color: var(--ink-400); }
+.route__stop[aria-current] .route__num { color: var(--accent-100); }
 
 .board__num { color: var(--ink-300); margin-right: var(--space-1); }
 
@@ -467,7 +488,7 @@ button.tile:active { transform: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .sheet { animation: none; }
-  .tile, .nav__link, .route__dot { transition: none; }
+  .tile, .nav__link, .route__dot, .route__stop, .route__stops li::before { transition: none; }
   .intro__scroll .icon { animation: none; }
 }
 
@@ -566,10 +587,9 @@ button.tile:active { transform: none; }
   .tile--chips .chip { font-size: 10px; padding: 2px 6px; }
   .board__head { flex-wrap: wrap; row-gap: 2px; }
   .board__head .h2 { flex-basis: 100%; }
-  .route { gap: var(--space-3); }
-  .route__stops { gap: 12px; }
-  .route__dot { width: 8px; height: 8px; }
-  .route__stops::before, .route__stops::after { left: 4px; width: calc(100% - 8px); }
+  .route { justify-content: flex-start; }
+  .route__stops li + li::before { width: 12px; margin: 0 5px; }
+  .route__label { font-size: 12px; }
   .display-lg { font-size: 26px; line-height: 32px; }
   .sheet { width: 100%; max-height: 92vh; padding: var(--space-5); }
   .sheet__cols { grid-template-columns: 1fr; gap: var(--space-5); }

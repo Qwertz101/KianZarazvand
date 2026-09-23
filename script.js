@@ -268,18 +268,20 @@ document.addEventListener('keydown', (ev) => {
 });
 
 /* ---------- route ----------
- * The header shows the page as one route with numbered stops. The line fills
- * with scroll progress; the current stop is named beside it.
+ * The header is a map of the whole page: every stop is listed on one line,
+ * so visitors see everything they can scroll to. Stops already passed fill
+ * in; the current one is highlighted and kept in view on narrow screens.
  */
 
 const stopsEl = document.getElementById('route-stops');
 stopsEl.innerHTML = STOPS.map((st, i) =>
-  '<li><a class="route__dot" href="#' + st.id + '" aria-label="Stop ' + (i + 1) + ': ' + st.name + '" title="' + pad(i + 1) + ' ' + st.name + '"></a></li>'
+  '<li><a class="route__stop" href="#' + st.id + '">' +
+  '<span class="route__dot" aria-hidden="true"></span>' +
+  '<span class="route__label"><span class="mono route__num">' + pad(i + 1) + '</span>' + st.name + '</span></a></li>'
 ).join('');
-const dots = [...stopsEl.querySelectorAll('.route__dot')];
+const items = [...stopsEl.children];
+const links = [...stopsEl.querySelectorAll('.route__stop')];
 const stopEls = STOPS.map((st) => document.getElementById(st.id));
-const routeNum = document.getElementById('route-num');
-const routeName = document.getElementById('route-name');
 let currentStop = -1;
 
 function updateRoute() {
@@ -287,19 +289,14 @@ function updateRoute() {
   let i = 0;
   stopEls.forEach((el, k) => { if (el && el.offsetTop <= line) i = k; });
   if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) i = STOPS.length - 1;
-  // fill: whole segments for passed stops plus progress toward the next one
-  const here = stopEls[i].offsetTop;
-  const next = i < STOPS.length - 1 ? stopEls[i + 1].offsetTop : here + 1;
-  const part = Math.min(1, Math.max(0, (line - here) / (next - here)));
-  stopsEl.style.setProperty('--fill', ((i + (i < STOPS.length - 1 ? part : 0)) / (STOPS.length - 1)).toFixed(4));
   if (i === currentStop) return;
   currentStop = i;
-  dots.forEach((d, k) => {
-    d.classList.toggle('is-passed', k <= i);
-    d.toggleAttribute('aria-current', k === i);
-  });
-  routeNum.textContent = pad(i + 1) + ' / ' + pad(STOPS.length);
-  routeName.textContent = STOPS[i].name;
+  items.forEach((li, k) => li.classList.toggle('is-passed', k <= i));
+  links.forEach((a, k) => (k === i ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current')));
+  // keep the current stop visible when the route scrolls sideways (phones)
+  const li = items[i];
+  const target = li.offsetLeft - (stopsEl.clientWidth - li.offsetWidth) / 2;
+  stopsEl.scrollTo({ left: target, behavior: 'smooth' });
 }
 
 let ticking = false;
@@ -308,5 +305,8 @@ window.addEventListener('scroll', () => {
   ticking = true;
   requestAnimationFrame(() => { updateRoute(); ticking = false; });
 }, { passive: true });
-window.addEventListener('resize', updateRoute);
+function checkOverflow() { stopsEl.classList.toggle('is-overflowing', stopsEl.scrollWidth > stopsEl.clientWidth + 1); }
+window.addEventListener('resize', () => { currentStop = -1; checkOverflow(); updateRoute(); });
+checkOverflow();
+document.fonts && document.fonts.ready.then(checkOverflow);
 updateRoute();
