@@ -13,9 +13,17 @@ function printSrc(src) {
   return src.replace(/^images\/(.+)\.\w+$/, 'images/print/$1.jpg');
 }
 
-function stillOf(entry) {
-  const m = (entry.media || []).find((x) => !x.video);
-  return m ? { src: printSrc(m.src), alt: m.alt || '' } : null;
+const STAGES = ['analysis', 'cad', 'prototype', 'built', 'field'];
+const STAGE_LABEL = { analysis: 'Analysis', cad: 'CAD', prototype: 'Prototype', built: 'Built', field: 'In competition' };
+
+/* One still per stage, in process order (CAD → Prototype → Built …), max 3. */
+function stagesOf(entry) {
+  const media = entry.media || [];
+  return STAGES.map((st) => {
+    const m = media.find((x) => x.stage === st);
+    if (!m) return null;
+    return { stage: st, src: printSrc(m.video ? m.poster : m.src), alt: m.alt || '' };
+  }).filter(Boolean).slice(0, 3);
 }
 
 // Keep each section header on the same page as its first project.
@@ -39,11 +47,13 @@ function bullets(items) {
 }
 
 function project(p) {
-  const img = stillOf(p);
+  const shots = p.media && p.media.some((m) => m.stage) ? stagesOf(p)
+    : (p.media || []).filter((m) => !m.video).slice(0, 1).map((m) => ({ src: printSrc(m.src), alt: m.alt || '' }));
   const labels = p.labels || ['Design elements', 'Functionality'];
   return `
-  <article class="proj${img ? '' : ' proj--noimg'}">
-    ${img ? `<figure><img src="${img.src}" alt="${esc(img.alt)}"></figure>` : ''}
+  <article class="proj${shots.length ? '' : ' proj--noimg'}">
+    ${shots.length ? `<div class="shots shots--${shots.length}">${shots.map((x, i) =>
+      `<figure>${x.stage ? `<figcaption>${shots.length > 1 ? '<b>' + String(i + 1).padStart(2, '0') + '</b> ' : ''}${STAGE_LABEL[x.stage]}</figcaption>` : ''}<img src="${x.src}" alt="${esc(x.alt)}"></figure>`).join('')}</div>` : ''}
     <div class="proj__body">
       <h3>${esc(p.title)}</h3>
       <p class="meta">${esc(p.meta)}</p>
@@ -94,5 +104,35 @@ const cover = `
 const sections = SECTIONS.map((s) => group(s.eyebrow, s.title, s.projects)).join('');
 const leadership = group('Leadership', 'Running the team', LEADERSHIP);
 
-document.getElementById('doc').innerHTML = cover + sections + leadership +
+const ENTRY = {};
+SECTIONS.forEach((s) => s.projects.forEach((p) => { ENTRY[p.id] = p; }));
+
+const lineage = `
+<section class="group lineage">
+  <header class="group__head">
+    <p class="eyebrow">FIRST Robotics · Elevator lineage · 2023 → 2025</p>
+    <h2>${esc(ELEVATOR.title)}</h2>
+  </header>
+  <p class="lead">${esc(ELEVATOR.intro)}</p>
+  <table class="matrix">
+    <thead><tr><th></th>${TRAITS.map((t) => `<th>${esc(t)}</th>`).join('')}</tr></thead>
+    <tbody>${ELEVATOR.versions.map((v) => `<tr><th><span class="v">${v.v}</span> ${esc(v.title)} <span class="when">${esc(v.when)}</span></th>${
+      TRAITS.map((t) => `<td>${v.drivers.includes(t) ? '<span class="dot"></span>' : ''}</td>`).join('')}</tr>`).join('')}</tbody>
+  </table>
+  <div class="versions">
+    ${ELEVATOR.versions.map((v) => {
+      const st = stagesOf(ENTRY[v.open] || {});
+      const pic = st.find((x) => x.stage === 'built') || st[st.length - 1];
+      return `<div class="version">
+        ${pic ? `<figure><figcaption>${STAGE_LABEL[pic.stage]}</figcaption><img src="${pic.src}" alt="${esc(pic.alt)}"></figure>` : ''}
+        <p class="v">${v.v} · ${esc(v.when)}</p>
+        <h3>${esc(v.title)}</h3>
+        <p class="req"><strong>Requirement:</strong> ${esc(v.requirement)}</p>
+        <ul>${v.changes.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>
+      </div>`;
+    }).join('')}
+  </div>
+</section>`;
+
+document.getElementById('doc').innerHTML = cover + sections + lineage + leadership +
   `<footer class="end">Kian Zarazvand · kianzarazvand@gmail.com · ${SITE_URL}</footer>`;

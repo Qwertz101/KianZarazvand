@@ -56,8 +56,36 @@ li::marker { color: var(--accent); }
 .proj { display: grid; grid-template-columns: 2.3in 1fr; gap: 0.2in; padding: 8pt 0 10pt; border-bottom: 1px solid var(--line); break-inside: avoid; }
 .proj:last-child { border-bottom: 0; }
 .proj--noimg { grid-template-columns: 1fr; }
-.proj figure { margin: 0; display: flex; align-items: flex-start; justify-content: center; }
+.proj figure { margin: 0; }
 .proj img { max-width: 100%; max-height: 2.4in; object-fit: contain; border-radius: 6pt; border: 1px solid var(--line); display: block; }
+
+/* Process: one image per stage, CAD → Prototype → Built */
+.shots { display: flex; align-items: flex-start; gap: 4pt; }
+.shots figure { flex: 1 1 0; min-width: 0; }
+.shots img { width: 100%; height: auto; max-height: 2.2in; }
+.shots--2 img, .shots--3 img { height: 1.15in; object-fit: contain; background: #fff; }
+figcaption b { color: var(--accent); font-weight: 500; }
+figcaption { font-family: var(--mono); font-size: 6.5pt; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 2pt; }
+
+/* Elevator lineage */
+.lineage { break-before: page; }
+.lineage > .lead { margin-bottom: 8pt; }
+.matrix { width: 100%; border-collapse: collapse; margin-bottom: 10pt; }
+.matrix th, .matrix td { border-bottom: 1px solid var(--line); padding: 4pt 5pt; font-size: 8.5pt; }
+.matrix thead th { font-size: 6.5pt; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; text-align: center; }
+.matrix tbody th { text-align: left; font-weight: 600; }
+.matrix td { text-align: center; }
+.matrix .v { font-family: var(--mono); color: var(--accent); margin-right: 2pt; }
+.matrix .when { font-family: var(--mono); font-size: 7pt; color: var(--ink-3); font-weight: 400; margin-left: 3pt; }
+.dot { display: inline-block; width: 7pt; height: 7pt; border-radius: 50%; background: var(--accent); }
+.versions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10pt; }
+.version { break-inside: avoid; }
+.version figure { margin: 0 0 4pt; }
+.version img { width: 100%; height: 1.5in; object-fit: contain; border: 1px solid var(--line); border-radius: 5pt; display: block; }
+.version .v { font-family: var(--mono); font-size: 7.5pt; color: var(--accent); }
+.version h3 { font-size: 10pt; line-height: 1.25; margin: 1pt 0 3pt; }
+.version .req { font-size: 8.5pt; color: var(--ink-2); }
+.version li { font-size: 8pt; line-height: 1.35; }
 .proj h3 { font-size: 12pt; font-weight: 600; letter-spacing: -0.01em; }
 .meta { font-family: var(--mono); font-size: 7.5pt; color: var(--ink-3); margin-top: 1pt; }
 .lead { margin-top: 4pt; color: var(--ink); }

@@ -1,6 +1,9 @@
 /* Kian Zarazvand — portfolio content
  * All copy lives in this file: SECTIONS (project groups), LEADERSHIP, PANELS
- * and TIMELINE. Shared by the site (script.js) and the PDF (print.js).
+ * ELEVATOR and TIMELINE. Shared by the site (script.js) and the PDF (print.js).
+ *
+ * Every media item has a stage: analysis, cad, prototype, built or field.
+ * Galleries and process strips group and order photos by it.
  *
  * Media entries take either { src, alt } for an image or
  * { video, poster, alt } for a clip. The first entry is the tile thumbnail.
@@ -20,7 +23,7 @@ const SECTIONS = [
         short: 'May 2026 · associate engineer',
         meta: 'Associate Engineer, Suspension · May 2026',
         media: [
-          { src: 'images/pushrod-optimizer.png', alt: 'MATLAB contour plot of total assembly mass against tube outer diameter and wall thickness, with buckling, insert yield and glue shear boundaries and the optimum marked at 20.65 mm diameter and 0.75 mm wall' }
+          { stage: 'analysis', src: 'images/pushrod-optimizer.png', alt: 'MATLAB contour plot of total assembly mass against tube outer diameter and wall thickness, with buckling, insert yield and glue shear boundaries and the optimum marked at 20.65 mm diameter and 0.75 mm wall' }
         ],
         lead: 'A pushrod only has to carry axial load, which makes it the ideal first part to move from steel to a bonded carbon tube. I wrote a MATLAB optimizer that sweeps tube diameter and wall thickness against global buckling, insert yield and glue shear limits, then sized the insert and bond length from the result.',
         design: [
@@ -43,8 +46,8 @@ const SECTIONS = [
         short: 'Jan 2026 · intro project',
         meta: 'Suspension Intern · January 2026',
         media: [
-          { src: 'images/control-arm.jpg', alt: 'CAD render of a carbon fiber A-arm mounted to the tubular chassis with a billet upright bracket' },
-          { src: 'images/control-arm-closeup.jpg', alt: 'Close-up of the machined steel insert joining two carbon fiber tubes with a rod end' }
+          { stage: 'cad', src: 'images/control-arm.jpg', alt: 'CAD render of a carbon fiber A-arm mounted to the tubular chassis with a billet upright bracket' },
+          { stage: 'cad', src: 'images/control-arm-closeup.jpg', alt: 'Close-up of the machined steel insert joining two carbon fiber tubes with a rod end' }
         ],
         lead: 'Suspension for a Formula Student car has to be light enough to matter and stiff enough to survive a season of testing. This intro project took the control arm from skeleton model through FEA to a preliminary carbon fiber design bonded into billet inserts.',
         design: [
@@ -75,8 +78,8 @@ const SECTIONS = [
         short: 'May 2026 · mechanical engineer',
         meta: 'Mechanical Engineer · May 2026 — present',
         media: [
-          { src: 'images/lumirror-proto.jpg', alt: 'CNC-machined aluminum prototype tab for the lumirror housing, lying on a workbench' },
-          { src: 'images/lumirror-cad.png', alt: 'CAD render of the sheet metal clamping tab with its slot and fastener holes' }
+          { stage: 'cad', src: 'images/lumirror-cad.png', alt: 'CAD render of the sheet metal clamping tab with its slot and fastener holes' },
+          { stage: 'prototype', src: 'images/lumirror-proto.jpg', alt: 'CNC-machined aluminum prototype tab for the lumirror housing, lying on a workbench' }
         ],
         lead: 'The housing has to keep a 1 m × 8 m reflective plastic sheet taut and located inside a cryostat while the whole assembly contracts from room temperature down to 70 K.',
         design: [
@@ -106,7 +109,7 @@ const SECTIONS = [
         short: 'Apr 2026 · forearm CAD',
         meta: 'ACM Robotics, UC Riverside · April 2026',
         media: [
-          { src: 'images/forearm.jpg', alt: 'CAD render of the robotic arm forearm with a servo and belt drive to the wrist joint' }
+          { stage: 'cad', src: 'images/forearm.jpg', alt: 'CAD render of the robotic arm forearm with a servo and belt drive to the wrist joint' }
         ],
         lead: 'The forearm carries the wrist actuator back toward the elbow and drives the joint through a belt, so the arm gets stiffer and more capable without adding motor mass at the tip.',
         design: [
@@ -134,10 +137,10 @@ const SECTIONS = [
         short: 'Feb 2025 · lifts a 150 lb robot',
         meta: 'Team Captain & CAD Lead · February 2025',
         media: [
-          { src: 'images/climb-1.jpg', alt: 'CAD render of the climb mechanism with polycarbonate funnel plates and a tube-and-gusset frame' },
-          { video: 'video/climb.mp4', poster: 'images/climb-poster.jpg', alt: 'Video of the robot funnelling the steel cage and rotating it in to lift itself off the ground' },
-          { src: 'images/climb-2.jpg', alt: 'Second view of the climb mechanism showing the pivot and the sheet metal funnel' },
-          { src: 'images/climb-3.jpg', alt: 'Rear view of the climb mechanism with the drive and rotating cage cradle' }
+          { stage: 'cad', src: 'images/climb-1.jpg', alt: 'CAD render of the climb mechanism with polycarbonate funnel plates and a tube-and-gusset frame' },
+          { stage: 'cad', src: 'images/climb-2.jpg', alt: 'Second view of the climb mechanism showing the pivot and the sheet metal funnel' },
+          { stage: 'cad', src: 'images/climb-3.jpg', alt: 'Rear view of the climb mechanism with the drive and rotating cage cradle' },
+          { stage: 'field', video: 'video/climb.mp4', poster: 'images/climb-poster.jpg', alt: 'Video of the robot funnelling the steel cage and rotating it in to lift itself off the ground' }
         ],
         lead: 'The end-game climb had to catch a swinging steel cage, then rotate it into the robot hard enough to lift 150 lb off the floor — and survive being slammed into the cage at speed, match after match.',
         design: [
@@ -159,10 +162,10 @@ const SECTIONS = [
         short: 'Jan 2025 · turntable arm pivot',
         meta: 'Team Captain & CAD Lead · January 2025',
         media: [
-          { src: 'images/offset-pivot.jpg', alt: 'CAD render of the elevator tower with the large-diameter turntable pivot and chain drive at the top' },
-          { src: 'images/offset-pivot-plate.jpg', alt: 'The machined turntable plate and arm link on a chair during assembly' },
-          { src: 'images/robot-2025.jpg', alt: 'The 2025 competition robot with its full-height elevator and pivoting arm' },
-          { src: 'images/robot-2025-shop.jpg', alt: 'The 2025 robot extended to full height in the team shop' }
+          { stage: 'cad', src: 'images/offset-pivot.jpg', alt: 'CAD render of the elevator tower with the large-diameter turntable pivot and chain drive at the top' },
+          { stage: 'prototype', src: 'images/offset-pivot-plate.jpg', alt: 'The machined turntable plate and arm link on a chair during assembly' },
+          { stage: 'built', src: 'images/robot-2025.jpg', alt: 'The 2025 competition robot with its full-height elevator and pivoting arm' },
+          { stage: 'built', src: 'images/robot-2025-shop.jpg', alt: 'The 2025 robot extended to full height in the team shop' }
         ],
         lead: 'The arm needed to pivot from the top of the elevator without its gearbox riding along for the trip. Offsetting the pivot through a large turntable and a chain run let the gearbox sit low while the arm stayed stiff.',
         design: [
@@ -185,9 +188,9 @@ const SECTIONS = [
         short: 'Jul 2024 · high-speed conveyor',
         meta: 'CAD Lead · July 2024',
         media: [
-          { src: 'images/transfer-1.jpg', alt: 'CAD render of the polycarbonate transfer with belted rollers' },
-          { src: 'images/transfer-2.jpg', alt: 'Alternate view of the transfer mechanism showing the roller stack and belt path' },
-          { src: 'images/transfer-proto.jpg', alt: 'Prototype transfer built on the drivetrain with an orange game piece resting on the rollers' }
+          { stage: 'cad', src: 'images/transfer-1.jpg', alt: 'CAD render of the polycarbonate transfer with belted rollers' },
+          { stage: 'cad', src: 'images/transfer-2.jpg', alt: 'Alternate view of the transfer mechanism showing the roller stack and belt path' },
+          { stage: 'prototype', src: 'images/transfer-proto.jpg', alt: 'Prototype transfer built on the drivetrain with an orange game piece resting on the rollers' }
         ],
         lead: 'A game piece has to move from the intake to the shooter in a fraction of a second without getting pinched or thrown. The transfer is a short conveyor built from polycarbonate and belted rollers.',
         design: [
@@ -206,10 +209,8 @@ const SECTIONS = [
         short: 'Jul 2024 · shooter pivot',
         meta: 'CAD Lead · July 2024',
         media: [
-          { src: 'images/launch-angle-1.jpg', alt: 'CAD render of the shooter pivot with a curved 20DP gear rack, carbon fiber tubes and pocketed plates' },
-          { src: 'images/launch-angle-2.jpg', alt: 'Second view of the launch angle mechanism showing the shooter wheels and rack drive' },
-          { src: 'images/robot-2024.jpg', alt: 'The 2024 competition robot on the floor with the shooter and transfer installed' },
-          { src: 'images/robot-2024-proto.jpg', alt: 'Early 2024 robot prototype in the shop' }
+          { stage: 'cad', src: 'images/launch-angle-1.jpg', alt: 'CAD render of the shooter pivot with a curved 20DP gear rack, carbon fiber tubes and pocketed plates' },
+          { stage: 'cad', src: 'images/launch-angle-2.jpg', alt: 'Second view of the launch angle mechanism showing the shooter wheels and rack drive' }
         ],
         lead: 'Instead of driving the shooter pivot through its own axis, a curved gear rack lets a small pinion hold the whole assembly at any angle with plenty of torque — and the rack doubles as structure.',
         design: [
@@ -232,9 +233,11 @@ const SECTIONS = [
         short: 'Jan 2024 · wrist carriage',
         meta: 'CAD Lead · January 2024',
         media: [
-          { src: 'images/two-stage-1.jpg', alt: 'CAD render of the two-stage elevator with the wrist gearbox housed in the carriage' },
-          { src: 'images/two-stage-2.jpg', alt: 'Isometric view of the two-stage elevator showing the diverted belt path and bevel gearbox' },
-          { src: 'images/two-stage-3.jpg', alt: 'Top-down view of the two-stage elevator carriage and motors' }
+          { stage: 'cad', src: 'images/two-stage-1.jpg', alt: 'CAD render of the two-stage elevator with the wrist gearbox housed in the carriage' },
+          { stage: 'cad', src: 'images/two-stage-2.jpg', alt: 'Isometric view of the two-stage elevator showing the diverted belt path and bevel gearbox' },
+          { stage: 'cad', src: 'images/two-stage-3.jpg', alt: 'Top-down view of the two-stage elevator carriage and motors' },
+          { stage: 'built', src: 'images/two-stage-built-side.jpg', alt: 'The built two-stage elevator and wrist on the robot in the shop, side view' },
+          { stage: 'built', src: 'images/two-stage-built-top.jpg', alt: 'The built two-stage elevator and rotational gearbox seen from above on the robot' }
         ],
         lead: 'Packaging is the whole problem here: the wrist gearbox lives inside the elevator carriage, the belt is diverted around it, and a constant-force spring cancels the mechanism’s own weight so the motor only moves the payload.',
         design: [
@@ -255,10 +258,10 @@ const SECTIONS = [
         short: 'Jul 2023 · cascade elevator',
         meta: 'Design Engineer · July 2023',
         media: [
-          { src: 'images/three-stage-1.jpg', alt: 'CAD render of the three-stage cascade elevator with pocketed CNC plates' },
-          { src: 'images/three-stage-2.jpg', alt: 'Side view of the three-stage elevator showing the continuous belt tensioning' },
-          { src: 'images/three-stage-comp.jpg', alt: 'The three-stage elevator fully extended on the robot during a competition match' },
-          { src: 'images/three-stage-robot.jpg', alt: 'The 2023 robot with the elevator raised in the shop' }
+          { stage: 'cad', src: 'images/three-stage-1.jpg', alt: 'CAD render of the three-stage cascade elevator with pocketed CNC plates' },
+          { stage: 'cad', src: 'images/three-stage-2.jpg', alt: 'Side view of the three-stage elevator showing the continuous belt tensioning' },
+          { stage: 'built', src: 'images/three-stage-robot.jpg', alt: 'The 2023 robot with the elevator raised in the shop' },
+          { stage: 'field', src: 'images/three-stage-comp.jpg', alt: 'The three-stage elevator fully extended on the robot during a competition match' }
         ],
         lead: 'The mechanism I have iterated on longest. Cascade rigging lets one motor drive three stages, and the belt tensioning was redesigned until it was continuous, easy to make and did not skip under load. Over twelve revisions across two years, the family of elevators that grew from this design reached 60 inches of travel in 0.4 seconds and a 300 lb lifting capacity.',
         design: [
@@ -282,8 +285,8 @@ const SECTIONS = [
         short: 'Jun 2023 · XY linear motion R&D',
         meta: 'New member training project · June 2023',
         media: [
-          { src: 'images/xy-trainer.jpg', alt: 'CAD render of the XY gantry built from 6061 aluminum tubestock with corner gussets' },
-          { video: 'video/xy-trainer.mp4', poster: 'images/xy-trainer-poster.jpg', alt: 'Video of the assembled XY gantry being moved by hand on the shop floor' }
+          { stage: 'cad', src: 'images/gantry-cad.jpg', alt: 'CAD render of the XY gantry built from 6061 aluminum tubestock with corner gussets' },
+          { stage: 'built', video: 'video/gantry.mp4', poster: 'images/gantry-poster.jpg', alt: 'Video of the assembled gantry being moved by hand on the shop floor' }
         ],
         lead: 'A two-axis gantry in the style of a 3D printer, built as a training exercise that became the team’s testbed for belted linear motion.',
         design: [
@@ -339,7 +342,7 @@ const LEADERSHIP = [
     short: 'May 2024 — May 2025 · 30 students',
     meta: 'Team Captain, Team 6560 · Irvine, CA · May 2024 — May 2025',
     media: [
-      { src: 'images/in-action-2.jpg', alt: 'Kian and teammates working on the robot inside the field cage at a competition' },
+      { src: 'images/in-action-2.jpg', alt: 'Kian prepping the robot inside the field cage before a match' },
       { src: 'images/team-photo.jpg', alt: 'Team 6560 posing with the robot after a competition' },
       { src: 'images/kian-robot.jpg', alt: 'Kian and a teammate standing beside the 2025 robot in the shop' }
     ],
@@ -361,7 +364,7 @@ const LEADERSHIP = [
     short: 'Aug 2023 — Apr 2025 · team of 6',
     meta: 'CAD Lead, Team 6560 · Irvine, CA · August 2023 — April 2025',
     media: [
-      { src: 'images/in-action-1.jpg', alt: 'Kian reviewing a checklist with teammates in the pits at a competition' },
+      { src: 'images/in-action-1.jpg', alt: 'Kian strategizing with teammates in the pits at a competition' },
       { src: 'images/kian-working.jpg', alt: 'Kian crouched over the robot chassis wiring it in the shop' }
     ],
     lead: 'This was where the team’s design practice got built: a shared library, a file system people could actually navigate, and six designers trained to the same standard.',
@@ -425,7 +428,7 @@ const PANELS = {
     title: 'What I work in',
     meta: 'CAD · manufacturing · analysis',
     media: [
-      { src: 'images/two-stage-2.jpg', alt: 'Isometric CAD render of the two-stage elevator' }
+      { stage: 'cad', src: 'images/two-stage-2.jpg', alt: 'Isometric CAD render of the two-stage elevator' }
     ],
     lead: 'Most of my work starts in SolidWorks and ends on a CNC, a laser cutter or a 3D printer in the same building.',
     design: [
@@ -441,6 +444,64 @@ const PANELS = {
     labels: ['Core', 'Also'],
     tags: ['SolidWorks', 'Fusion 360', 'Onshape', 'MATLAB', 'GD&T']
   }
+};
+
+/* Elevator lineage: one mechanism re-optimized as requirements changed.
+ * `drivers` are what each version was optimized for; they light up in the
+ * comparison matrix, whose columns are TRAITS. Edit both freely.
+ */
+const TRAITS = ['Multi-stage', 'Lightweight', 'Compact', 'Simple', 'Heavy-duty', 'Fast'];
+
+const ELEVATOR = {
+  title: 'One mechanism, re-optimized every season',
+  intro: 'I have been the team\u2019s elevator specialist since 2023. Each season the game asked for something different \u2014 more reach, less weight, tighter packaging, more load \u2014 so the same linear-motion mechanism was re-optimized around new requirements. Over 12 revisions in two years, the family reached 60 in of travel in 0.4 s and a 300 lb lifting capacity.',
+  stats: [
+    { figure: '12+', label: 'revisions in two years' },
+    { figure: '60 in / 0.4 s', label: 'fastest travel' },
+    { figure: '300 lb', label: 'heaviest lift' }
+  ],
+  versions: [
+    {
+      v: 'V0', when: 'Jun 2023', title: 'Gantry trainer', open: 'xytrainer',
+      requirement: 'Learn belted linear motion before building it on a robot.',
+      drivers: ['Simple'],
+      changes: [
+        'Belts run inside 6061 tubestock to protect the powertrain.',
+        'Belt tensioned to minimize backlash; corner gussets for stiffness.',
+        'Became the testbed for every elevator after it.'
+      ]
+    },
+    {
+      v: 'V1', when: 'Jul 2023', title: '3-stage cascade elevator', open: 'threestage',
+      requirement: 'Score at a distant location: travel double the mechanism length.',
+      drivers: ['Multi-stage', 'Lightweight'],
+      changes: [
+        'Cascade rigging drives three stages from one motor.',
+        'Continuous, easily manufactured belt tensioning.',
+        'Pocketed CNC plates to meet the weight limit; 7+ iterations.'
+      ]
+    },
+    {
+      v: 'V2', when: 'Jan 2024', title: '2-stage elevator + rotational gearbox', open: 'twostage',
+      requirement: 'Carry a powered wrist without growing the robot.',
+      drivers: ['Compact', 'Simple'],
+      changes: [
+        'Dropped to two stages; the wrist gearbox lives inside the carriage.',
+        'Bevel gear and a diverted belt path for packaging.',
+        '10 lb constant-force spring cancels the mechanism weight.'
+      ]
+    },
+    {
+      v: 'V3', when: 'Jan 2025', title: 'Elevator with offset arm pivot', open: 'offsetpivot',
+      requirement: 'Hold a long pivoting arm at full height without flex.',
+      drivers: ['Heavy-duty', 'Fast'],
+      changes: [
+        'Large-diameter turntable stiffens the arm joint.',
+        '#25 chain with an inline turnbuckle tensioner.',
+        'Gearbox lowered to drop the mechanism centre of gravity.'
+      ]
+    }
+  ]
 };
 
 const TIMELINE = [

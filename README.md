@@ -5,12 +5,12 @@ Static site. No build step, no dependencies.
 ```
 index.html     nav, full-screen About (wigglegram), bento boards, modal shell
 styles.css     Vault design tokens and all layout
-data.js        ALL content: SECTIONS, LEADERSHIP, PANELS, TIMELINE
+data.js        ALL content: SECTIONS, LEADERSHIP, PANELS, ELEVATOR, TIMELINE
 script.js      BOARDS (bento layout) + tiles, modal, gallery, nav
 print.html/.js/.css   printable version of the whole site, built from data.js
 build-pdf.ps1  renders print.html -> Kian-Zarazvand-Portfolio.pdf
 images/        renders and photos (images/print/ = smaller copies for the PDF)
-video/         climb.mp4, xy-trainer.mp4
+video/         climb.mp4, gantry.mp4
 ```
 
 ## Run it
@@ -41,8 +41,26 @@ Tile kinds:
 { kind: 'stat', w: 2, h: 1, figure: '150 lb', label: 'robot lifted', accent: true, open: 'climb' }
 { kind: 'text', w: 4, h: 1, text: 'Short phrase', open: 'twostage' }
 { kind: 'chips', w: 4, h: 2, label: 'Skills', chips: [...], open: 'skills' }
-{ kind: 'name' } / { kind: 'contact' }
+{ kind: 'contact' }
+{ kind: 'process', w: 6, h: 3, open: 'offsetpivot', label: '…',      // design progression
+  steps: [{ src: 'images/a.jpg', ar: 0.66 }, { src: 'images/b.jpg', ar: 0.75 },
+          { pending: 'Laser-cut 304 stainless', stage: 'built', ar: 0.5 }] }
 ```
+
+`ar` is each image's width ÷ height; pick the tile's `w/h` close to the sum
+of the step `ar`s so every step shows uncropped at equal height.
+
+## Engineering process
+
+Every media item in `data.js` has a `stage`: `analysis`, `cad`, `prototype`,
+`built` or `field` (in competition). It drives the stage chip on each photo,
+the CAD → Prototype → Built grouping in each project's gallery, the stage tabs
+in the elevator lineage, and the numbered stage strips in the PDF.
+
+The elevator lineage section reads `ELEVATOR` and `TRAITS` in `data.js`:
+each version has a `requirement`, the `drivers` it was optimized for (these
+fill the comparison matrix) and what `changes` were made. `open` links it to that
+version's project, whose photos it shows.
 
 Tiles pack with `grid-auto-flow: dense`, so design each board in 12-wide
 blocks of equal height (e.g. 5×4 + 4×3/4×1 + 3×3/3×1) and it fills with no
