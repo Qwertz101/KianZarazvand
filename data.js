@@ -97,30 +97,36 @@ const SECTIONS = [
     ]
   },
   {
-    id: 'acm',
-    eyebrow: 'ACM Robotics',
-    title: 'Robotic arm',
-    intro: 'Manipulator design with UCR’s ACM Robotics group.',
+    id: 'ctr',
+    eyebrow: 'UCR undergraduate research · Concentric tube robotics',
+    title: 'Snap-driven swimming robot',
+    intro: 'A research group building an underwater robot whose fins swim by deliberately triggering the elastic snap of pre-curved Nitinol tubes. I joined to lead the simulation.',
     projects: [
       {
-        id: 'forearm',
-        eyebrow: 'ACM Robotics',
-        title: 'Robotic arm forearm assembly',
-        short: 'Apr 2026 · forearm CAD',
-        meta: 'ACM Robotics, UC Riverside · April 2026',
+        id: 'ctr',
+        eyebrow: 'UCR undergraduate research',
+        title: 'Concentric tube snap simulator',
+        short: 'Sep 2026 — present · simulation lead',
+        meta: 'Undergraduate Researcher, concentric tube robotics · UC Riverside · Sep 2026 — present',
+        link: 'https://qwertz101.github.io/turtle-robot-sim/',
         media: [
-          { stage: 'cad', src: 'images/forearm.jpg', alt: 'CAD render of the robotic arm forearm with a servo and belt drive to the wrist joint' }
+          { stage: 'analysis', src: 'images/ctr-sim-3d.jpg', alt: 'The simulator\u2019s 3D view of a two-tube Nitinol fin mid-sweep, beside its energy landscape and equilibrium map plots' },
+          { stage: 'analysis', src: 'images/ctr-optimization.jpg', alt: 'Design optimization surface of snap energy times propulsion efficiency over precurvature and overlap length, with snap-onset and fatigue boundaries' }
         ],
-        lead: 'The forearm carries the wrist actuator back toward the elbow and drives the joint through a belt, so the arm gets stiffer and more capable without adding motor mass at the tip.',
+        lead: 'Medical concentric tube robots treat the snap of pre-curved tubes as a failure to avoid. Our group uses it on purpose: a fin that stores torsional energy and releases it in a burst-and-coast swimming stroke. Since joining the group I have been responsible for the simulator, using it to re-evaluate whether our original fin plan was the most efficient and to explore other ways of harnessing the Nitinol snap to propel the robot.',
         design: [
-          'Servo actuation for the wrist motion.',
-          'Custom belt tensioning built into the forearm body.'
+          'Two-tube model built on the Gilbert\u2013Hendrick\u2013Webster elastic stability analysis: bifurcation parameter \u03bb, snap onset at \u03bb\u2080 = \u03c0\u00b2/4, energy landscape and equilibrium map.',
+          'Design optimization surface of physical snap energy E_snap = \u0394E \u00b7 k_t / L_c (mJ) across precurvature and overlap length, scored by propulsion efficiency and Nitinol fatigue strain.',
+          'Free, fully constrained and planar outer-tube modes to compare how the snap energy splits between bending and torsion.',
+          'Photoreal three.js view with physically consistent shadows, slow-motion snap replay and a SolidWorks-style view cube.'
         ],
         functionality: [
-          'Shifts weight closer to the proximal joint.',
-          'Increased torque and joint stiffness.'
+          'Traces the fin\u2019s motion path, colour-coded build-up vs snap, and resolves a net propulsion vector shown as a compass.',
+          'Snap propulsion efficiency: the share of each snap that pushes along the net propulsion direction.',
+          'Every quantity carries units and its source equation; a citations page covers every paper used.',
+          'Deployed on GitHub Pages so the whole group can use it from a browser.'
         ],
-        tags: ['Servo drive', 'Belt transmission', 'Manipulators', 'CAD']
+        tags: ['React', 'three.js', 'KaTeX', 'Elastic stability', 'Nitinol', 'Research tool']
       }
     ]
   },
@@ -302,35 +308,6 @@ const SECTIONS = [
         tags: ['6061 aluminum', 'Belts', 'Linear motion', 'Training']
       }
     ]
-  },
-  {
-    id: 'personal',
-    eyebrow: 'Personal projects',
-    title: 'Off the clock',
-    intro: 'Projects with no team, no deadline and no budget to speak of.',
-    projects: [
-      {
-        id: 'glider',
-        eyebrow: 'Personal project',
-        title: 'Balsa glider',
-        short: 'Mar 2025 · 12 ft wingspan',
-        meta: 'Personal · March 2025',
-        media: [],
-        placeholder: 'Balsa glider',
-        lead: 'A long-range delivery glider with a 12 ft wingspan, built from laser-cut balsa ribs, 3D-printed connectors and carbon fiber spars.',
-        design: [
-          'Simplified manufacturing by laser cutting balsa wood.',
-          '3D-printed connectors for affordability and weight.',
-          'Improved airframe rigidity with carbon fiber reinforcements.',
-          'Etched part IDs for ease of assembly.',
-          'Designed a 12 ft wingspan to generate sufficient lift.'
-        ],
-        functionality: [
-          'Flies long ranges to deliver items.'
-        ],
-        tags: ['Laser cutting', '3D printing', 'Carbon fiber', 'Aero']
-      }
-    ]
   }
 ];
 
@@ -364,7 +341,6 @@ const LEADERSHIP = [
     short: 'Aug 2023 — Apr 2025 · team of 6',
     meta: 'CAD Lead, Team 6560 · Irvine, CA · August 2023 — April 2025',
     media: [
-      { src: 'images/in-action-1.jpg', alt: 'Kian strategizing with teammates in the pits at a competition' },
       { src: 'images/kian-working.jpg', alt: 'Kian crouched over the robot chassis wiring it in the shop' }
     ],
     lead: 'This was where the team’s design practice got built: a shared library, a file system people could actually navigate, and six designers trained to the same standard.',
@@ -386,6 +362,7 @@ const LEADERSHIP = [
     short: 'Jun 2025 — present · two programs',
     meta: 'Irvine High School Robotics & Charging Champions Robotics · June 2025 — present',
     media: [
+      { src: 'images/in-action-1.jpg', alt: 'Kian strategizing with teammates in the pits at a competition' },
       { src: 'images/kian-robot.jpg', alt: 'Kian beside the robot in the team shop' }
     ],
     lead: 'Two strands of the same skill: getting a group of people to deliver a working physical system on a fixed date.',
@@ -474,7 +451,7 @@ const ELEVATOR = {
     {
       v: 'V1', when: 'Jul 2023', title: '3-stage cascade elevator', open: 'threestage',
       requirement: 'Score at a distant location: travel double the mechanism length.',
-      drivers: ['Multi-stage', 'Lightweight'],
+      drivers: ['Multi-stage', 'Heavy-duty'],
       changes: [
         'Cascade rigging drives three stages from one motor.',
         'Continuous, easily manufactured belt tensioning.',
@@ -506,7 +483,7 @@ const ELEVATOR = {
 
 const TIMELINE = [
   { when: 'May 2026 — present', org: 'Dark Matter & Neutrino Lab, UC Riverside', role: 'Mechanical Engineer', open: 'lumirror' },
-  { when: 'Apr 2026', org: 'ACM Robotics, UC Riverside', role: 'Robotic arm design', open: 'forearm' },
+  { when: 'Sep 2026 — present', org: 'Concentric tube robotics research, UC Riverside', role: 'Undergraduate Researcher, simulation', open: 'ctr' },
   { when: 'Oct 2025 — present', org: 'UCR Formula SAE', role: 'Suspension Intern → Associate Engineer', open: 'pushrod' },
   { when: 'Jun 2025 — present', org: 'FIRST Robotics', role: 'Project Manager & Design Mentor', open: 'mentor' },
   { when: 'May 2024 — May 2025', org: 'FIRST Robotics, Team 6560', role: 'Team Captain', open: 'captain' },

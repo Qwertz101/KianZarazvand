@@ -58,6 +58,7 @@ function project(p) {
       <h3>${esc(p.title)}</h3>
       <p class="meta">${esc(p.meta)}</p>
       <p class="lead">${esc(p.lead)}</p>
+      ${p.link ? `<p class="link">Live tool: <a href="${p.link}">${p.link.replace(/^https:\/\//, '')}</a></p>` : ''}
       <div class="cols">
         <div><p class="label">${esc(labels[0])}</p>${bullets(p.design || [])}</div>
         <div><p class="label">${esc(labels[1])}</p>${bullets(p.functionality || [])}</div>

@@ -626,8 +626,9 @@ button.tile:active { transform: none; }
 }
 .process__arrow svg {
   position: absolute;
-  top: -12px;
-  left: -21px;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
   width: 24px;
   height: 24px;
   padding: 4px;
@@ -640,6 +641,15 @@ button.tile:active { transform: none; }
 }
 .tile--process .tile__label { border-radius: 0 0 var(--radius-xl) var(--radius-xl); }
 button.tile--process:hover .process__arrow svg { border-color: var(--accent-100); }
+
+/* Link tile — opens an external page */
+.tile--link { flex-direction: row; align-items: center; justify-content: space-between; gap: var(--space-3); text-decoration: none; background: var(--accent-050); border-color: var(--accent-300); }
+.tile--link > span { color: var(--accent-200); }
+.tile--link .icon { stroke: var(--accent-200); width: 18px; height: 18px; }
+a.tile--link:hover { border-color: var(--accent-100); transform: translateY(-1px); }
+.sheet__link { margin-top: var(--space-4); }
+.sheet__link[hidden] { display: none; }
+.sheet__link .icon { width: 14px; height: 14px; }
 
 /* Elevator lineage */
 .lineage {
@@ -701,6 +711,22 @@ button.tile--process:hover .process__arrow svg { border-color: var(--accent-100)
   cursor: pointer;
 }
 .lineage__node:hover { color: var(--ink-100); }
+.lineage__node { overflow: hidden; }
+.lineage__progress {
+  position: absolute;
+  left: 10px; right: 10px; bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent-100);
+  transform-origin: left;
+  transform: scaleX(0);
+  opacity: 0;
+}
+.is-cycling .lineage__node[aria-selected="true"] .lineage__progress {
+  opacity: 1;
+  animation: lineage-progress var(--dwell, 6000ms) linear forwards;
+}
+@keyframes lineage-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .lineage__dot {
   width: 16px; height: 16px;
   border-radius: 50%;
@@ -821,7 +847,7 @@ button.tile--process:hover .process__arrow svg { border-color: var(--accent-100)
   .board__head { flex-wrap: wrap; row-gap: 2px; }
   .process { inset: 5px; gap: 12px; }
   .process__step { border-radius: 8px; }
-  .process__arrow svg { width: 20px; height: 20px; top: -10px; left: -16px; padding: 3px; }
+  .process__arrow svg { width: 20px; height: 20px; padding: 3px; }
   .process__pending { inset: auto 6px 34px 6px; font-size: 11px; line-height: 14px; }
   .stage { font-size: 9px; padding: 1px 5px; }
   .stage--corner { top: 7px; left: 7px; }

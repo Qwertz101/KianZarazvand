@@ -9,7 +9,7 @@
  *            steps: [{ src, ar }] where ar = width / height of the image;
  *            choose w/h close to the sum of the ars. A step can be
  *            { pending: 'text', stage, ar } for a stage still in progress.
- *   stat, text, chips, contact
+ *   stat, text, chips, contact, link ({ text, href }: opens in a new tab)
  * fit: 'contain' + bg keeps white-background CAD renders whole.
  * A board with `lineage: true` renders the elevator lineage instead of tiles.
  */
@@ -31,8 +31,8 @@ const BOARDS = [
   {
     id: 'lab',
     stop: 'Research',
-    eyebrow: 'Research & robotics at UCR',
-    title: 'Dark Matter & Neutrino Lab · ACM Robotics',
+    eyebrow: 'Research at UC Riverside',
+    title: 'Cryogenic hardware · Snap-driven swimming robot',
     tiles: [
       { kind: 'process', w: 5, h: 3, m: [4, 3], open: 'lumirror', label: 'Lumirror sheet housing',
         steps: [
@@ -40,10 +40,16 @@ const BOARDS = [
           { src: 'images/lumirror-proto.jpg', ar: 0.75 },
           { pending: 'Laser-cut 304 stainless', stage: 'built', ar: 0.5 }
         ] },
-      { kind: 'img', w: 4, h: 3, src: 'images/forearm.jpg', open: 'forearm', label: 'Robotic arm forearm', fit: 'contain', bg: '#fff' },
-      { kind: 'stat', w: 3, h: 1, figure: '70 K', label: 'cooldown from room temp', accent: true, open: 'lumirror' },
-      { kind: 'stat', w: 3, h: 1, figure: '1 × 8 m', label: 'reflective sheet, kept taut', open: 'lumirror' },
-      { kind: 'text', w: 3, h: 1, text: 'Servo + belt drive · ACM Robotics', open: 'forearm' }
+      { kind: 'stat', w: 2, h: 1, figure: '70 K', label: 'cooldown from room temp', accent: true, open: 'lumirror' },
+      { kind: 'img', w: 5, h: 3, m: [4, 2], src: 'images/ctr-sim-3d.jpg', open: 'ctr', label: 'Concentric tube snap simulator', fit: 'contain', bg: '#11161b' },
+      { kind: 'stat', w: 2, h: 1, figure: '1 × 8 m', label: 'reflective sheet, kept taut', open: 'lumirror' },
+      { kind: 'text', w: 2, h: 1, text: 'Dark Matter & Neutrino Lab', open: 'lumirror' },
+
+      { kind: 'img', w: 5, h: 3, m: [4, 2], src: 'images/ctr-optimization.jpg', open: 'ctr', label: 'Snap energy design optimization', fit: 'contain', bg: '#11161b' },
+      { kind: 'text', w: 7, h: 1, text: 'Turning the snap of pre-curved Nitinol tubes into a swimming stroke', open: 'ctr' },
+      { kind: 'stat', w: 3, h: 1, figure: 'λ₀ = π²/4', label: 'snap onset, Gilbert–Webster', open: 'ctr' },
+      { kind: 'stat', w: 4, h: 1, figure: '3', label: 'outer-tube constraint modes compared', accent: true, open: 'ctr' },
+      { kind: 'link', w: 7, h: 1, text: 'Open the live research tool', href: 'https://qwertz101.github.io/turtle-robot-sim/' }
     ]
   },
   {
@@ -87,10 +93,10 @@ const BOARDS = [
     eyebrow: 'Leadership',
     title: 'Running the team',
     tiles: [
-      { kind: 'img', w: 4, h: 3, src: 'images/kian-working.jpg', open: 'captain', label: 'Team captain' },
-      { kind: 'img', w: 4, h: 3, src: 'images/in-action-1.jpg', open: 'cadlead', label: 'CAD lead' },
+      { kind: 'img', w: 2, h: 3, src: 'images/in-action-2.jpg', open: 'captain', label: 'Team captain' },
       { kind: 'img', w: 2, h: 3, src: 'images/team-photo.jpg', open: 'captain', label: 'Five competitions' },
-      { kind: 'img', w: 2, h: 3, src: 'images/in-action-2.jpg', open: 'mentor', label: 'Now mentoring' },
+      { kind: 'img', w: 4, h: 3, src: 'images/kian-working.jpg', open: 'cadlead', label: 'CAD lead' },
+      { kind: 'img', w: 4, h: 3, src: 'images/in-action-1.jpg', open: 'mentor', label: 'Now mentoring' },
       { kind: 'text', w: 4, h: 1, text: '30 students · two-month build', open: 'captain' },
       { kind: 'text', w: 4, h: 1, text: 'Team of 6 · design library · SolidWorks training', open: 'cadlead' },
       { kind: 'text', w: 4, h: 1, text: 'Design mentor · controls PM', open: 'mentor' }
@@ -99,11 +105,11 @@ const BOARDS = [
   {
     id: 'more',
     stop: 'Contact',
-    eyebrow: 'Personal · Skills · Contact',
-    title: 'Off the clock',
+    eyebrow: 'Personal interests · Skills · Contact',
+    title: 'Personal interests',
     tiles: [
-      { kind: 'stat', w: 4, h: 2, figure: '12 ft', label: 'balsa glider wingspan', open: 'glider' },
-      { kind: 'chips', w: 4, h: 2, open: 'skills', label: 'Skills & tools', chips: ['SolidWorks', 'Fusion 360', 'Onshape', 'MATLAB', 'FEA', 'GD&T', 'CNC', 'Laser cutting', '3D printing', 'Carbon fiber', 'Sheet metal'] },
+      { kind: 'chips', w: 4, h: 2, open: 'about', label: 'Personal interests', chips: ['Early-2000s thrillers', 'Freestyle street dance', 'Improv dance', 'Indoor soccer', 'Technical theatre'] },
+      { kind: 'chips', w: 4, h: 2, open: 'skills', label: 'Skills & tools', chips: ['SolidWorks', 'Fusion 360', 'Onshape', 'MATLAB', 'FEA', 'GD&T', 'CNC', 'Laser cutting', '3D printing', 'Carbon fiber', 'Sheet metal', 'React · three.js'] },
       { kind: 'contact', w: 4, h: 2 }
     ]
   }
@@ -122,6 +128,7 @@ const STAGE_LABEL = { analysis: 'Analysis', cad: 'CAD', prototype: 'Prototype', 
 
 const CUBE = '<svg class="media__glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 7.5v9L12 21 3 16.5v-9z"/><path d="M3 7.5 12 12l9-4.5"/><path d="M12 12v9"/></svg>';
 const PLAY = '<svg class="media__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+const ARROW_OUT = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>';
 const CHEVRON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
 
 function escapeHtml(s) {
@@ -159,6 +166,7 @@ function phoneSpan(t) {
     return [mw, Math.max(1, Math.round(mw * t.h / t.w))];
   }
   if (t.kind === 'chips' || t.kind === 'contact' || t.kind === 'process') return [4, 2];
+  if (t.kind === 'link') return [4, 1];
   if (t.kind === 'text') return [t.w >= 3 ? 4 : 2, 1];
   return [t.w >= 4 ? 4 : 2, 1];
 }
@@ -211,6 +219,10 @@ function tileHtml(t) {
     return '<' + tag + ' class="tile tile--chips' + wide + '" ' + span + open + '>' +
       '<span class="tile__caption">' + escapeHtml(t.label) + '</span>' +
       '<span class="chips">' + t.chips.map((c) => '<span class="chip">' + escapeHtml(c) + '</span>').join('') + '</span></' + end + '>';
+  }
+  if (t.kind === 'link') {
+    return '<a class="tile tile--text tile--link' + wide + '" ' + span + ' href="' + t.href + '" target="_blank" rel="noopener">' +
+      '<span>' + escapeHtml(t.text) + '</span>' + ARROW_OUT + '</a>';
   }
   if (t.kind === 'contact') {
     return '<div class="tile tile--contact" ' + span + '>' +
@@ -326,6 +338,9 @@ function selectVersion(i) {
     n.parentElement.classList.toggle('is-passed', k <= lv);
   });
   lineage.querySelectorAll('.lineage__matrix tbody tr').forEach((r, k) => r.classList.toggle('is-active', k === lv));
+  // keep the active version visible when the track scrolls sideways (phones)
+  const track = lineage.querySelector('.lineage__track');
+  if (track.scrollWidth > track.clientWidth) track.scrollTo({ left: track.children[lv].offsetLeft - 16, behavior: 'smooth' });
   lineage.querySelector('.lineage__when').textContent = v.v + ' · ' + v.when;
   lineage.querySelector('.lineage__title').textContent = v.title;
   lineage.querySelector('.lineage__req').textContent = v.requirement;
@@ -335,8 +350,43 @@ function selectVersion(i) {
   renderLineageMedia();
 }
 
+/* Auto-cycle through the versions like a carousel. It runs only while the
+   section is on screen, pauses while the visitor hovers or focuses inside it,
+   stops for good once they pick a version themselves, and never runs for
+   visitors who prefer reduced motion. The active node shows a progress bar. */
+const LINEAGE_DWELL = 6000;
+let lTimer = null;
+let lVisible = false;
+let lHeld = false;       // hover / focus inside the section
+let lStopped = false;    // the visitor took control
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function scheduleLineage() {
+  clearTimeout(lTimer);
+  const run = lVisible && !lHeld && !lStopped && !reduceMotion;
+  lineage.classList.toggle('is-cycling', run);
+  if (!run) return;
+  lineage.style.setProperty('--dwell', LINEAGE_DWELL + 'ms');
+  // restart the progress bar animation on the active node
+  const bar = lineage.querySelector('.lineage__node[aria-selected="true"] .lineage__progress');
+  if (bar) { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; }
+  lTimer = setTimeout(() => { selectVersion(lv + 1); scheduleLineage(); }, LINEAGE_DWELL);
+}
+
+function stopLineage() { lStopped = true; scheduleLineage(); }
+
 if (lineage) {
+  lineage.querySelectorAll('.lineage__node').forEach((n) => n.insertAdjacentHTML('beforeend', '<span class="lineage__progress" aria-hidden="true"></span>'));
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([en]) => { lVisible = en.isIntersecting; scheduleLineage(); }, { threshold: 0.35 }).observe(lineage);
+  }
+  lineage.addEventListener('pointerenter', () => { lHeld = true; scheduleLineage(); });
+  lineage.addEventListener('pointerleave', () => { lHeld = false; scheduleLineage(); });
+  lineage.addEventListener('focusin', () => { lHeld = true; scheduleLineage(); });
+  lineage.addEventListener('focusout', (ev) => { if (!lineage.contains(ev.relatedTarget)) { lHeld = false; scheduleLineage(); } });
+
   lineage.addEventListener('click', (ev) => {
+    if (ev.target.closest('button, tr')) stopLineage();
     const node = ev.target.closest('[data-version]');
     if (node) { selectVersion(Number(node.dataset.version)); return; }
     const step = ev.target.closest('[data-step]');
@@ -349,6 +399,7 @@ if (lineage) {
   lineage.querySelector('.lineage__track').addEventListener('keydown', (ev) => {
     if (ev.key !== 'ArrowRight' && ev.key !== 'ArrowLeft') return;
     ev.preventDefault();
+    stopLineage();
     selectVersion(lv + (ev.key === 'ArrowRight' ? 1 : -1));
     lineage.querySelectorAll('.lineage__node')[lv].focus();
   });
@@ -406,6 +457,9 @@ function openSheet(id) {
   document.getElementById('sheet-title').textContent = e.title;
   document.getElementById('sheet-meta').textContent = e.meta;
   document.getElementById('sheet-lead').textContent = e.lead;
+  const sheetLink = document.getElementById('sheet-link');
+  sheetLink.hidden = !e.link;
+  if (e.link) sheetLink.href = e.link;
 
   const labels = e.labels || ['Design elements', 'Functionality'];
   document.getElementById('sheet-label-a').textContent = labels[0];
