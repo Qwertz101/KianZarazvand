@@ -79,12 +79,13 @@ const SECTIONS = [
         meta: 'Mechanical Engineer · May 2026 — present',
         media: [
           { stage: 'cad', src: 'images/lumirror-cad.png', alt: 'CAD render of the sheet metal clamping tab with its slot and fastener holes' },
-          { stage: 'prototype', src: 'images/lumirror-proto.jpg', alt: 'CNC-machined aluminum prototype tab for the lumirror housing, lying on a workbench' }
+          { stage: 'prototype', src: 'images/lumirror-proto.jpg', alt: 'CNC-machined aluminum prototype tab for the lumirror housing, lying on a workbench' },
+          { stage: 'prototype', print: true, src: 'images/lumirror-assembled.jpg', alt: 'The assembled aluminum prototype housing holding a sheet of Lumirror taut in the lab' }
         ],
-        lead: 'The housing has to keep a 1 m × 8 m reflective plastic sheet taut and located inside a cryostat while the whole assembly contracts from room temperature down to 70 K.',
+        lead: 'The housing has to keep a 1 m × 8 m reflective plastic sheet taut and located inside a cryostat while the whole assembly contracts from room temperature down to 70 K. The aluminum prototype is assembled and holding sheet; the final build is next.',
         design: [
-          'CNC aluminum for the prototype.',
-          'Laser-cut 304 stainless steel for the final product.',
+          'CNC aluminum for the prototype, now assembled and tested with sheet.',
+          'Laser-cut 304 stainless steel planned for the final build.',
           'Sheet metal tabs and clamping sheets to grip the film without tearing it.',
           'Fastening designed around rapid cryogenic thermal contraction.'
         ],
@@ -98,22 +99,23 @@ const SECTIONS = [
   },
   {
     id: 'ctr',
-    eyebrow: 'UCR undergraduate research · Concentric tube robotics',
+    eyebrow: 'UCR RAMS Lab · Concentric tube robotics',
     title: 'Snap-driven swimming robot',
-    intro: 'A research group building an underwater robot whose fins swim by deliberately triggering the elastic snap of pre-curved Nitinol tubes. I joined to lead the simulation.',
+    intro: 'The RAMS Lab is building an underwater robot whose fins swim by deliberately triggering the elastic snap of pre-curved Nitinol tubes. I joined to lead the simulation.',
     projects: [
       {
         id: 'ctr',
-        eyebrow: 'UCR undergraduate research',
+        eyebrow: 'UCR RAMS Lab',
         title: 'Concentric tube snap simulator',
         short: 'Sep 2026 — present · simulation lead',
-        meta: 'Undergraduate Researcher, concentric tube robotics · UC Riverside · Sep 2026 — present',
+        meta: 'Undergraduate Researcher, RAMS Lab · UC Riverside · Sep 2026 — present',
         link: 'https://qwertz101.github.io/turtle-robot-sim/',
         media: [
-          { stage: 'analysis', src: 'images/ctr-sim-3d.jpg', alt: 'The simulator\u2019s 3D view of a two-tube Nitinol fin mid-sweep, beside its energy landscape and equilibrium map plots' },
+          { stage: 'analysis', video: 'video/ctr-sweep.mp4', poster: 'images/ctr-sweep-poster.jpg', alt: 'Simulation of the two-tube Nitinol fin sweeping through one full cycle of motor base twist, including the snap' },
+          { stage: 'analysis', print: true, src: 'images/ctr-sim-3d.jpg', alt: 'The simulator\u2019s 3D view of a two-tube Nitinol fin mid-sweep, beside its energy landscape and equilibrium map plots' },
           { stage: 'analysis', src: 'images/ctr-optimization.jpg', alt: 'Design optimization surface of snap energy times propulsion efficiency over precurvature and overlap length, with snap-onset and fatigue boundaries' }
         ],
-        lead: 'Medical concentric tube robots treat the snap of pre-curved tubes as a failure to avoid. Our group uses it on purpose: a fin that stores torsional energy and releases it in a burst-and-coast swimming stroke. Since joining the group I have been responsible for the simulator, using it to re-evaluate whether our original fin plan was the most efficient and to explore other ways of harnessing the Nitinol snap to propel the robot.',
+        lead: 'Medical concentric tube robots treat the snap of pre-curved tubes as a failure to avoid. The RAMS Lab uses it on purpose: a fin that stores torsional energy and releases it in a burst-and-coast swimming stroke. Since joining the group I have been responsible for the simulator, using it to re-evaluate whether our original fin plan was the most efficient and to explore other ways of harnessing the Nitinol snap to propel the robot.',
         design: [
           'Two-tube model built on the Gilbert\u2013Hendrick\u2013Webster elastic stability analysis: bifurcation parameter \u03bb, snap onset at \u03bb\u2080 = \u03c0\u00b2/4, energy landscape and equilibrium map.',
           'Design optimization surface of physical snap energy E_snap = \u0394E \u00b7 k_t / L_c (mJ) across precurvature and overlap length, scored by propulsion efficiency and Nitinol fatigue strain.',
@@ -186,51 +188,6 @@ const SECTIONS = [
           'Integrates with the "elevator" mechanism.'
         ],
         tags: ['#25 chain', 'Turntable', 'Encoders', 'Power transmission']
-      },
-      {
-        id: 'transfer',
-        eyebrow: 'FIRST Robotics',
-        title: 'Transfer mechanism',
-        short: 'Jul 2024 · high-speed conveyor',
-        meta: 'CAD Lead · July 2024',
-        media: [
-          { stage: 'cad', src: 'images/transfer-1.jpg', alt: 'CAD render of the polycarbonate transfer with belted rollers' },
-          { stage: 'cad', src: 'images/transfer-2.jpg', alt: 'Alternate view of the transfer mechanism showing the roller stack and belt path' },
-          { stage: 'prototype', src: 'images/transfer-proto.jpg', alt: 'Prototype transfer built on the drivetrain with an orange game piece resting on the rollers' }
-        ],
-        lead: 'A game piece has to move from the intake to the shooter in a fraction of a second without getting pinched or thrown. The transfer is a short conveyor built from polycarbonate and belted rollers.',
-        design: [
-          'Designed a high-speed conveyor belt.',
-          'Used polycarbonate for a lightweight structure.'
-        ],
-        functionality: [
-          'Transfers game pieces from one mechanism to another.'
-        ],
-        tags: ['Conveyor', 'Polycarbonate', 'Belts', 'Prototyping']
-      },
-      {
-        id: 'launchangle',
-        eyebrow: 'FIRST Robotics',
-        title: 'Launch angle rotary mechanism',
-        short: 'Jul 2024 · shooter pivot',
-        meta: 'CAD Lead · July 2024',
-        media: [
-          { stage: 'cad', src: 'images/launch-angle-1.jpg', alt: 'CAD render of the shooter pivot with a curved 20DP gear rack, carbon fiber tubes and pocketed plates' },
-          { stage: 'cad', src: 'images/launch-angle-2.jpg', alt: 'Second view of the launch angle mechanism showing the shooter wheels and rack drive' }
-        ],
-        lead: 'Instead of driving the shooter pivot through its own axis, a curved gear rack lets a small pinion hold the whole assembly at any angle with plenty of torque — and the rack doubles as structure.',
-        design: [
-          'Used a 20DP gear rack for stability and high torque.',
-          'Reinforced the structure with carbon fiber tubes.',
-          'Aggressive weight reduction with pocketing.',
-          'Customized the power transmission for optimal integration.',
-          'Precisely integrated with the surrounding subsystems.'
-        ],
-        functionality: [
-          'Rotates the "shooter" mechanism up and down.',
-          'Moves game pieces from the "transfer" to the "shooter".'
-        ],
-        tags: ['Gear rack', 'Carbon fiber', 'Pocketing', 'Integration']
       },
       {
         id: 'twostage',
@@ -388,7 +345,7 @@ const PANELS = {
     ],
     lead: 'I’m a mechanical engineering student at the University of California, Riverside, expecting to graduate in 2029. I started in FIRST Robotics in 2022 on Team 6560 Charging Champions, ran a 30-student team as captain, and now mentor two programs while working on suspension for UCR Formula SAE and cryogenic hardware for the Dark Matter & Neutrino Lab. Most of what I know came from iterating on a part until it stopped breaking.',
     design: [
-      'BS Mechanical Engineering, University of California, Riverside — 3.83 GPA, expected June 2029.',
+      'BS Mechanical Engineering, University of California, Riverside — 3.9 GPA, expected June 2029.',
       'Coursework: MATLAB, multivariable calculus, linear algebra, GD&T, 3D CAD design.',
       'University High School, Irvine — graduated June 2025 with a 4.15 GPA.'
     ],
@@ -471,7 +428,7 @@ const ELEVATOR = {
     {
       v: 'V3', when: 'Jan 2025', title: 'Elevator with offset arm pivot', open: 'offsetpivot',
       requirement: 'Hold a long pivoting arm at full height without flex.',
-      drivers: ['Heavy-duty', 'Fast'],
+      drivers: ['Compact', 'Fast'],
       changes: [
         'Large-diameter turntable stiffens the arm joint.',
         '#25 chain with an inline turnbuckle tensioner.',
@@ -483,7 +440,7 @@ const ELEVATOR = {
 
 const TIMELINE = [
   { when: 'May 2026 — present', org: 'Dark Matter & Neutrino Lab, UC Riverside', role: 'Mechanical Engineer', open: 'lumirror' },
-  { when: 'Sep 2026 — present', org: 'Concentric tube robotics research, UC Riverside', role: 'Undergraduate Researcher, simulation', open: 'ctr' },
+  { when: 'Sep 2026 — present', org: 'RAMS Lab, UC Riverside', role: 'Undergraduate Researcher, simulation', open: 'ctr' },
   { when: 'Oct 2025 — present', org: 'UCR Formula SAE', role: 'Suspension Intern → Associate Engineer', open: 'pushrod' },
   { when: 'Jun 2025 — present', org: 'FIRST Robotics', role: 'Project Manager & Design Mentor', open: 'mentor' },
   { when: 'May 2024 — May 2025', org: 'FIRST Robotics, Team 6560', role: 'Team Captain', open: 'captain' },

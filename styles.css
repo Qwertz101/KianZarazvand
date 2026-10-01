@@ -333,7 +333,7 @@ button.tile:active { transform: none; }
 
 /* Image tiles — the image fills the tile; tile spans are chosen to match its
    aspect ratio, and CAD renders use contain on white so nothing is clipped. */
-.tile--img img {
+.tile--img img, .tile__video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -641,6 +641,12 @@ button.tile:active { transform: none; }
 }
 .tile--process .tile__label { border-radius: 0 0 var(--radius-xl) var(--radius-xl); }
 button.tile--process:hover .process__arrow svg { border-color: var(--accent-100); }
+
+/* Labeled groups inside one board (e.g. two labs under Research) */
+.subgroup + .subgroup { margin-top: var(--space-6); }
+.subgroup__head { display: flex; align-items: baseline; gap: var(--space-3); padding: 0 var(--space-1) var(--space-3); border-top: 1px solid var(--line-100); padding-top: var(--space-4); }
+.subgroup:first-child .subgroup__head { border-top: 0; padding-top: 0; }
+.subgroup__title { margin: 0; font-size: 17px; line-height: 24px; font-weight: 600; }
 
 /* Link tile — opens an external page */
 .tile--link { flex-direction: row; align-items: center; justify-content: space-between; gap: var(--space-3); text-decoration: none; background: var(--accent-050); border-color: var(--accent-300); }

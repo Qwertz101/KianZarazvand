@@ -20,7 +20,7 @@ const STAGE_LABEL = { analysis: 'Analysis', cad: 'CAD', prototype: 'Prototype', 
 function stagesOf(entry) {
   const media = entry.media || [];
   return STAGES.map((st) => {
-    const m = media.find((x) => x.stage === st);
+    const m = media.find((x) => x.stage === st && x.print) || media.find((x) => x.stage === st);
     if (!m) return null;
     return { stage: st, src: printSrc(m.video ? m.poster : m.src), alt: m.alt || '' };
   }).filter(Boolean).slice(0, 3);
@@ -80,7 +80,7 @@ const cover = `
     <p>${esc(about.lead)}</p>
     <dl class="facts">
       <div><dt>Degree</dt><dd>BS Mechanical Engineering, UC Riverside · expected June 2029</dd></div>
-      <div><dt>GPA</dt><dd>3.83</dd></div>
+      <div><dt>GPA</dt><dd>3.9</dd></div>
       <div><dt>Contact</dt><dd>kianzarazvand@gmail.com · 949.315.8322</dd></div>
       <div><dt>Web</dt><dd><a href="https://${SITE_URL}">${SITE_URL}</a></dd></div>
     </dl>

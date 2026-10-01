@@ -11,7 +11,8 @@
  *            { pending: 'text', stage, ar } for a stage still in progress.
  *   stat, text, chips, contact, link ({ text, href }: opens in a new tab)
  * fit: 'contain' + bg keeps white-background CAD renders whole.
- * A board with `lineage: true` renders the elevator lineage instead of tiles.
+ * A board with `lineage: true` renders the elevator lineage instead of tiles;
+ * a board with `groups: [{ eyebrow, title, tiles }]` renders one labeled bento per group.
  */
 
 const BOARDS = [
@@ -31,25 +32,37 @@ const BOARDS = [
   {
     id: 'lab',
     stop: 'Research',
-    eyebrow: 'Research at UC Riverside',
-    title: 'Cryogenic hardware · Snap-driven swimming robot',
-    tiles: [
-      { kind: 'process', w: 5, h: 3, m: [4, 3], open: 'lumirror', label: 'Lumirror sheet housing',
-        steps: [
-          { src: 'images/lumirror-cad.png', ar: 0.47 },
-          { src: 'images/lumirror-proto.jpg', ar: 0.75 },
-          { pending: 'Laser-cut 304 stainless', stage: 'built', ar: 0.5 }
-        ] },
-      { kind: 'stat', w: 2, h: 1, figure: '70 K', label: 'cooldown from room temp', accent: true, open: 'lumirror' },
-      { kind: 'img', w: 5, h: 3, m: [4, 2], src: 'images/ctr-sim-3d.jpg', open: 'ctr', label: 'Concentric tube snap simulator', fit: 'contain', bg: '#11161b' },
-      { kind: 'stat', w: 2, h: 1, figure: '1 × 8 m', label: 'reflective sheet, kept taut', open: 'lumirror' },
-      { kind: 'text', w: 2, h: 1, text: 'Dark Matter & Neutrino Lab', open: 'lumirror' },
-
-      { kind: 'img', w: 5, h: 3, m: [4, 2], src: 'images/ctr-optimization.jpg', open: 'ctr', label: 'Snap energy design optimization', fit: 'contain', bg: '#11161b' },
-      { kind: 'text', w: 7, h: 1, text: 'Turning the snap of pre-curved Nitinol tubes into a swimming stroke', open: 'ctr' },
-      { kind: 'stat', w: 3, h: 1, figure: 'λ₀ = π²/4', label: 'snap onset, Gilbert–Webster', open: 'ctr' },
-      { kind: 'stat', w: 4, h: 1, figure: '3', label: 'outer-tube constraint modes compared', accent: true, open: 'ctr' },
-      { kind: 'link', w: 7, h: 1, text: 'Open the live research tool', href: 'https://qwertz101.github.io/turtle-robot-sim/' }
+    eyebrow: 'Undergraduate research at UC Riverside',
+    title: 'Two research labs',
+    groups: [
+      {
+        eyebrow: 'Dark Matter & Neutrino Lab',
+        title: 'Cryogenic hardware',
+        tiles: [
+          { kind: 'process', w: 5, h: 3, m: [4, 3], open: 'lumirror', label: 'Lumirror sheet housing',
+            steps: [
+              { src: 'images/lumirror-cad.png', ar: 0.47 },
+              { src: 'images/lumirror-proto.jpg', ar: 0.75 },
+              { src: 'images/lumirror-assembled.jpg', ar: 0.56, label: 'Assembled' }
+            ] },
+          { kind: 'stat', w: 3, h: 1, figure: '70 K', label: 'cooldown from room temp', accent: true, open: 'lumirror' },
+          { kind: 'stat', w: 4, h: 1, figure: '1 × 8 m', label: 'reflective sheet held taut', open: 'lumirror' },
+          { kind: 'text', w: 7, h: 1, text: 'Housing that keeps a reflective sheet taut inside a cryostat', open: 'lumirror' },
+          { kind: 'stat', w: 3, h: 1, figure: 'CNC Al', label: 'prototype, assembled', open: 'lumirror' },
+          { kind: 'stat', w: 4, h: 1, figure: '304 SS', label: 'laser-cut, planned for the final build', open: 'lumirror' }
+        ]
+      },
+      {
+        eyebrow: 'RAMS Lab',
+        title: 'Snap-driven swimming robot',
+        tiles: [
+          { kind: 'img', w: 5, h: 6, m: [4, 5], video: true, src: 'images/ctr-sweep-poster.jpg', open: 'ctr', label: 'Simulated fin sweep · one full cycle', fit: 'contain', bg: '#13161b' },
+          { kind: 'img', w: 7, h: 4, m: [4, 2], src: 'images/ctr-optimization.jpg', open: 'ctr', label: 'Snap energy design optimization', fit: 'contain', bg: '#13161b' },
+          { kind: 'text', w: 7, h: 1, text: 'Simulator for turning the snap of pre-curved Nitinol tubes into a swimming stroke', open: 'ctr' },
+          { kind: 'stat', w: 3, h: 1, figure: 'λ₀ = π²/4', label: 'snap onset, Gilbert–Webster', open: 'ctr' },
+          { kind: 'link', w: 4, h: 1, text: 'Open the live research tool', href: 'https://qwertz101.github.io/turtle-robot-sim/' }
+        ]
+      }
     ]
   },
   {
@@ -65,19 +78,9 @@ const BOARDS = [
           { src: 'images/offset-pivot-plate.jpg', ar: 0.75 },
           { src: 'images/robot-2025.jpg', ar: 0.67 }
         ] },
-      { kind: 'stat', w: 2, h: 1, figure: '150 lb', label: 'robot lifted by the climb', accent: true, open: 'climb' },
-      { kind: 'text', w: 2, h: 1, text: 'Large-diameter turntable', open: 'offsetpivot' },
-      { kind: 'text', w: 2, h: 1, text: 'Encoder for gearbox backlash', open: 'offsetpivot' },
-
-      { kind: 'img', w: 5, h: 4, src: 'images/launch-angle-1.jpg', open: 'launchangle', label: 'Launch angle rotary mechanism', fit: 'contain', bg: '#fff' },
-      { kind: 'process', w: 7, h: 2, m: [4, 2], open: 'transfer', label: 'Transfer mechanism',
-        steps: [
-          { src: 'images/transfer-1.jpg', ar: 2.21 },
-          { src: 'images/transfer-proto.jpg', ar: 1.33 }
-        ] },
-      { kind: 'img', w: 3, h: 2, src: 'images/launch-angle-2.jpg', open: 'launchangle', label: 'Shooter pivot', fit: 'contain', bg: '#fff' },
-      { kind: 'text', w: 4, h: 1, text: 'Curved 20DP rack · carbon tubes', open: 'launchangle' },
-      { kind: 'text', w: 4, h: 1, text: 'High-speed polycarbonate conveyor', open: 'transfer' }
+      { kind: 'stat', w: 2, h: 1, figure: '150 lb', label: 'robot lifted · climb', accent: true, open: 'climb' },
+      { kind: 'stat', w: 2, h: 1, figure: '#25', label: 'chain drive · offset pivot', open: 'offsetpivot' },
+      { kind: 'stat', w: 2, h: 1, figure: '3/8″', label: 'polycarbonate funnel · climb', open: 'climb' }
     ]
   },
   {
@@ -141,8 +144,8 @@ function mediaFor(entryId, src) {
   return e && (e.media || []).find((m) => m.src === src || m.poster === src);
 }
 
-function stageChip(stage, extra) {
-  return stage ? '<span class="stage stage--' + stage + (extra ? ' ' + extra : '') + '">' + STAGE_LABEL[stage] + '</span>' : '';
+function stageChip(stage, extra, text) {
+  return stage ? '<span class="stage stage--' + stage + (extra ? ' ' + extra : '') + '">' + (text || STAGE_LABEL[stage]) + '</span>' : '';
 }
 
 function mediaInner(m) {
@@ -181,7 +184,7 @@ function processHtml(t) {
       : '<img src="' + s.src + '" alt="" loading="lazy">';
     return (i ? '<span class="process__arrow" aria-hidden="true">' + CHEVRON + '</span>' : '') +
       '<span class="process__step' + (white ? ' is-white' : '') + (s.pending ? ' is-pending' : '') + '" style="flex-grow:' + s.ar + '">' +
-      body + stageChip(stage) + '</span>';
+      body + stageChip(stage, '', s.label) + '</span>';
   }).join('') + '</span>';
 }
 
@@ -197,9 +200,12 @@ function tileHtml(t) {
     const entry = ENTRIES[t.open] || {};
     const m = mediaFor(t.open, t.src);
     const imgStyle = 'style="object-fit:' + (t.fit || 'cover') + ';object-position:' + (t.pos || 'center') + (t.bg ? ';background:' + t.bg : '') + '"';
+    const clip = t.video && m && m.video;
+    const visual = clip
+      ? '<video class="tile__video" muted loop playsinline preload="metadata" poster="' + t.src + '" ' + imgStyle + '><source src="' + m.video + '" type="video/mp4"></video>'
+      : '<img src="' + t.src + '" alt="" loading="lazy" ' + imgStyle + '>';
     return '<' + tag + ' class="tile tile--img' + wide + '" ' + span + open + ' aria-label="' + escapeHtml(entry.title || t.label) + '">' +
-      '<img src="' + t.src + '" alt="" loading="lazy" ' + imgStyle + '>' +
-      (t.video ? PLAY : '') + stageChip(m && m.stage, 'stage--corner') +
+      visual + (t.video && !clip ? PLAY : '') + stageChip(m && m.stage, 'stage--corner') +
       '<span class="tile__label">' + escapeHtml(t.label) + '</span></' + end + '>';
   }
   if (t.kind === 'process') {
@@ -232,6 +238,18 @@ function tileHtml(t) {
       '<span class="caption">Riverside &amp; Irvine, CA</span></div>';
   }
   return '';
+}
+
+/* ---------- tile videos ----------
+ * Loop silently while on screen; paused off screen to save battery, and never
+ * started for visitors who prefer reduced motion (they see the poster). */
+function wireTileVideos() {
+  const vids = [...document.querySelectorAll('.tile__video')];
+  if (!vids.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+    if (en.isIntersecting) en.target.play().catch(() => {}); else en.target.pause();
+  }), { threshold: 0.2 });
+  vids.forEach((v) => { v.muted = true; io.observe(v); });
 }
 
 /* ---------- elevator lineage ----------
@@ -292,9 +310,14 @@ const pad = (n) => String(n).padStart(2, '0');
 document.getElementById('boards').innerHTML = BOARDS.map((b, i) =>
   '<section class="board" id="' + b.id + '">' +
   (b.title ? '<div class="board__head"><span class="mono board__num">' + pad(i + 2) + '</span><p class="eyebrow eyebrow--accent">' + escapeHtml(b.eyebrow) + '</p><h2 class="h2">' + escapeHtml(b.title) + '</h2></div>' : '') +
-  (b.lineage ? lineageHtml() : '<div class="bento">' + b.tiles.map(tileHtml).join('') + '</div>') + '</section>'
+  (b.lineage ? lineageHtml()
+    : b.groups ? b.groups.map((g) =>
+        '<div class="subgroup"><div class="subgroup__head"><p class="eyebrow">' + escapeHtml(g.eyebrow) + '</p><h3 class="subgroup__title">' + escapeHtml(g.title) + '</h3></div>' +
+        '<div class="bento">' + g.tiles.map(tileHtml).join('') + '</div></div>').join('')
+    : '<div class="bento">' + b.tiles.map(tileHtml).join('') + '</div>') + '</section>'
 ).join('');
 
+wireTileVideos();
 const lineage = document.getElementById('lineage');
 let lv = 0;          // selected version
 let lStage = null;   // selected stage within it
