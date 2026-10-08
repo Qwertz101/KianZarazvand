@@ -19,14 +19,19 @@ const BOARDS = [
   {
     id: 'fsae',
     stop: 'Formula SAE',
-    eyebrow: 'UCR Formula SAE',
-    title: 'Suspension',
+    eyebrow: 'UCR Formula SAE · Highlander Racing',
+    title: 'Carbon fiber suspension',
     tiles: [
+      { kind: 'img', w: 6, h: 4, src: 'images/pushrod-design-space.png', open: 'pushrod', label: 'Pushrod sizing: mass vs tube diameter and wall', fit: 'contain', bg: '#0a0a0a' },
+      { kind: 'img', w: 6, h: 3, m: [4, 2], src: 'images/pushrod-bond-shear.png', open: 'pushrod', label: 'Pushrod bond: shear along the 0.5 in overlap', fit: 'contain', bg: '#0a0a0a' },
+      { kind: 'stat', w: 2, h: 1, figure: '≈ 39 g', label: 'pushrod tube + bonded inserts', accent: true, open: 'pushrod' },
+      { kind: 'stat', w: 2, h: 1, figure: '60%', label: 'lighter than the steel pushrod', open: 'pushrod' },
+      { kind: 'stat', w: 2, h: 1, figure: '4005 N', label: 'pushrod peak load · FOS 3', open: 'pushrod' },
+
       { kind: 'img', w: 5, h: 4, src: 'images/control-arm.jpg', open: 'controlarm', label: 'Carbon fiber control arm', fit: 'contain', bg: '#fff' },
-      { kind: 'img', w: 4, h: 3, src: 'images/pushrod-optimizer.png', open: 'pushrod', label: 'MATLAB pushrod optimizer', fit: 'contain', bg: '#fff' },
-      { kind: 'img', w: 3, h: 3, src: 'images/control-arm-closeup.jpg', open: 'controlarm', label: 'Billet insert', fit: 'contain', bg: '#fff' },
-      { kind: 'stat', w: 4, h: 1, figure: '60%', label: 'lighter than the steel pushrod', accent: true, open: 'pushrod' },
-      { kind: 'stat', w: 3, h: 1, figure: '4.0 kN', label: 'design load', open: 'pushrod' }
+      { kind: 'img', w: 4, h: 3, src: 'images/pushrod-optimizer.png', open: 'pushrod', label: 'Pushrod sizing, first version', fit: 'contain', bg: '#fff' },
+      { kind: 'img', w: 3, h: 3, m: [4, 3], src: 'images/control-arm-closeup.jpg', open: 'controlarm', label: 'Control arm billet insert', fit: 'contain', bg: '#fff' },
+      { kind: 'text', w: 7, h: 1, text: 'Pushrod status: prototype build, Instron compression test next', open: 'pushrod' }
     ]
   },
   {

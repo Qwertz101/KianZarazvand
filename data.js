@@ -12,32 +12,37 @@
 const SECTIONS = [
   {
     id: 'fsae',
-    eyebrow: 'UCR Formula SAE',
+    eyebrow: 'UCR Formula SAE · Highlander Racing',
     title: 'Formula SAE suspension',
-    intro: 'I joined the UC Riverside Formula SAE team on the suspension sub-team. As an intern I completed a V6 engine CAD project and a control arm project; now, as an associate engineer, I run the carbon fiber pushrod project — R&D on carbon structures and adhesive bonding for future full-carbon control arms.',
+    intro: 'I joined Highlander Racing, UC Riverside\u2019s Formula SAE team, on the suspension sub-team. As an intern I completed a V6 engine CAD project and a control arm project; now, as an associate engineer, I run the carbon fiber pushrod project — R&D on carbon structures and adhesive bonding for future full-carbon control arms.',
     projects: [
       {
         id: 'pushrod',
-        eyebrow: 'UCR Formula SAE',
+        eyebrow: 'UCR Formula SAE · Highlander Racing',
         title: 'Carbon fiber pushrod',
-        short: 'May 2026 · associate engineer',
-        meta: 'Associate Engineer, Suspension · May 2026',
+        short: 'May 2026 — present · prototype build',
+        meta: 'Associate Engineer, Suspension · Highlander Racing FSAE · May 2026 — present · prototype, pre-test',
         media: [
-          { stage: 'analysis', src: 'images/pushrod-optimizer.png', alt: 'MATLAB contour plot of total assembly mass against tube outer diameter and wall thickness, with buckling, insert yield and glue shear boundaries and the optimum marked at 20.65 mm diameter and 0.75 mm wall' }
+          { stage: 'analysis', print: true, src: 'images/pushrod-design-space.png', alt: 'Design-space map of assembly mass over carbon tube outer diameter and wall thickness, with the elastic bond limit, the buckling limit at FOS times load, the grid optimum and DragonPlate stock sizes marked' },
+          { stage: 'analysis', src: 'images/pushrod-bond-shear.png', alt: 'Adhesive shear along the 0.5 in bond at the 4005 N working load: about 5.3 MPa average, peaking near 10.2 MPa at both ends, below the 11.4 MPa elastic allowable' },
+          { stage: 'analysis', src: 'images/pushrod-optimizer.png', alt: 'First version of the MATLAB sizing plot: assembly mass over tube diameter and wall thickness with buckling, insert yield and glue shear boundaries' }
         ],
-        lead: 'A pushrod only has to carry axial load, which makes it the ideal first part to move from steel to a bonded carbon tube. I wrote a MATLAB optimizer that sweeps tube diameter and wall thickness against global buckling, insert yield and glue shear limits, then sized the insert and bond length from the result.',
+        lead: 'A pushrod only carries axial load, which makes it the right first part to move from steel to a bonded carbon tube, and the testbed for the bonding process the team needs before full carbon fiber control arms. I sized the tube and its bonded 7075 inserts with a MATLAB optimizer, now in its third version, and wrote the whitepaper, assembly procedure and bill of materials the team builds and tests it from.',
         design: [
-          'MATLAB optimizer for tube sizing and wall thickness — 4.005 kN design load with split safety factors (buckling FoS 2.5, insert yield FoS 3.0, glue shear FoS 3.0).',
-          'Optimum landed at 20.65 mm outer diameter, 0.75 mm wall and a 10.24 mm insert length for a 50.2 g assembly.',
-          'FEA-optimized aluminum insert.',
-          'Epoxy bonding research and development for the tube-to-insert joint.'
+          'MATLAB optimizer (v3) sweeps tube OD 10\u201340 mm and wall 0.75\u20134 mm against Euler/Johnson buckling and a modified-Volkersen shear-lag model of the bond, at a 4005 N peak load with FOS 3.',
+          'Lightest DragonPlate stock tube near the optimum: 0.750 \u00d7 0.810 in roll-wrapped twill, 480 mm long, \u2248 39 g for the tube and bonded insert zones.',
+          '7075-T6 inserts sized for equal axial stiffness with the tube, which minimizes peak shear at the bond ends; 0.5 in overlap, under the 0.69 in critical length.',
+          '3M DP420 rated at its 120 \u00b0F strength for Riverside heat; 0.008 in bondline set by glass beads and injected through a vent port.',
+          'Helicoil-threaded inserts and LH/RH \u00bc-28 rod ends make the pushrod a length-adjustable turnbuckle.'
         ],
         functionality: [
-          '60% lighter than the prior steel pushrod.',
-          'Lowers unsprung mass for better vehicle dynamics.',
-          'Proves out the carbon structure and adhesive bonding for future full carbon fiber control arms.'
+          '60% lighter than the prior steel pushrod, lowering unsprung mass.',
+          'Peak bond shear 10.2 MPa at working load against an 11.4 MPa elastic allowable; bond FOS \u2248 2.4.',
+          'Open margin called out in the design: buckling FOS \u2248 2.5 at the assumed laminate modulus. The compression test decides it; a 0.875 \u00d7 0.935 in tube passes every check at +7 g as the fallback.',
+          'Validation plan: Instron compression to failure, a bond-shear coupon, three strain gauges to measure the real laminate modulus, and temperature labels at the joint.',
+          'Documented as a design whitepaper, a Rev D assembly and validation procedure, and a bill of materials.'
         ],
-        tags: ['MATLAB', 'Optimization', 'Carbon fiber', 'Epoxy bonding', 'FEA']
+        tags: ['MATLAB', 'Bonded joints', 'CFRP', '7075-T6', '3M DP420', 'Shear-lag analysis', 'Test planning']
       },
       {
         id: 'controlarm',
@@ -441,7 +446,7 @@ const ELEVATOR = {
 const TIMELINE = [
   { when: 'May 2026 — present', org: 'Dark Matter & Neutrino Lab, UC Riverside', role: 'Mechanical Engineer', open: 'lumirror' },
   { when: 'Sep 2026 — present', org: 'RAMS Lab, UC Riverside', role: 'Undergraduate Researcher, simulation', open: 'ctr' },
-  { when: 'Oct 2025 — present', org: 'UCR Formula SAE', role: 'Suspension Intern → Associate Engineer', open: 'pushrod' },
+  { when: 'Oct 2025 — present', org: 'UCR Formula SAE · Highlander Racing', role: 'Suspension Intern → Associate Engineer', open: 'pushrod' },
   { when: 'Jun 2025 — present', org: 'FIRST Robotics', role: 'Project Manager & Design Mentor', open: 'mentor' },
   { when: 'May 2024 — May 2025', org: 'FIRST Robotics, Team 6560', role: 'Team Captain', open: 'captain' },
   { when: 'Aug 2023 — Apr 2025', org: 'FIRST Robotics, Team 6560', role: 'CAD Lead', open: 'cadlead' },
