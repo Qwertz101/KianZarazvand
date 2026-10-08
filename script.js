@@ -25,7 +25,7 @@ const BOARDS = [
       { kind: 'img', w: 6, h: 4, src: 'images/pushrod-design-space.png', open: 'pushrod', label: 'Pushrod sizing: mass vs tube diameter and wall', fit: 'contain', bg: '#0a0a0a' },
       { kind: 'img', w: 6, h: 3, m: [4, 2], src: 'images/pushrod-bond-shear.png', open: 'pushrod', label: 'Pushrod bond: shear along the 0.5 in overlap', fit: 'contain', bg: '#0a0a0a' },
       { kind: 'stat', w: 2, h: 1, figure: '≈ 39 g', label: 'pushrod tube + bonded inserts', accent: true, open: 'pushrod' },
-      { kind: 'stat', w: 2, h: 1, figure: '60%', label: 'lighter than the steel pushrod', open: 'pushrod' },
+      { kind: 'stat', w: 2, h: 1, figure: '77%', label: 'lighter than the 168.8 g steel pushrod', open: 'pushrod' },
       { kind: 'stat', w: 2, h: 1, figure: '4005 N', label: 'pushrod peak load · FOS 3', open: 'pushrod' },
 
       { kind: 'img', w: 5, h: 4, src: 'images/control-arm.jpg', open: 'controlarm', label: 'Carbon fiber control arm', fit: 'contain', bg: '#fff' },

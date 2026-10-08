@@ -36,7 +36,7 @@ const SECTIONS = [
           'Helicoil-threaded inserts and LH/RH \u00bc-28 rod ends make the pushrod a length-adjustable turnbuckle.'
         ],
         functionality: [
-          '60% lighter than the prior steel pushrod, lowering unsprung mass.',
+          '77% lighter than the prior steel pushrod (≈ 39 g vs 168.8 g), lowering unsprung mass.',
           'Peak bond shear 10.2 MPa at working load against an 11.4 MPa elastic allowable; bond FOS \u2248 2.4.',
           'Open margin called out in the design: buckling FOS \u2248 2.5 at the assumed laminate modulus. The compression test decides it; a 0.875 \u00d7 0.935 in tube passes every check at +7 g as the fallback.',
           'Validation plan: Instron compression to failure, a bond-shear coupon, three strain gauges to measure the real laminate modulus, and temperature labels at the joint.',
