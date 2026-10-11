@@ -39,7 +39,7 @@ const SECTIONS = [
         ],
         functionality: [
           '77% lighter than the prior 168.8 g steel pushrod, lowering unsprung mass.',
-          'Wrote the assembly and validation procedure (document revision D): helicoils before bond prep, wet or hood-extracted abrasion, Alodine conversion coat, glass beads at ~2 g per 3 oz of adhesive for a 0.0065\u20130.008 in gap.',
+          'Wrote the assembly and validation procedure: helicoils before bond prep, wet or hood-extracted abrasion, Alodine conversion coat, glass beads at ~2 g per 3 oz of adhesive for a 0.0065\u20130.008 in gap.',
           'Insert pressed in one continuous motion with a squeeze-out ring check and a dial-indicator alignment check before gel; 24 h cure at 22 \u00b0C.',
           'Acceptance: Instron compression at 1\u20132 mm/min must reach FOS \u2265 2.5 against 4005 N with the tube buckling first and both joints intact.',
           'Bond coupon from the same batch is pulled against a ~2,800 lbf prediction; interfacial failure fails the surface prep regardless of load.',
