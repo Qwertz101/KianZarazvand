@@ -27,9 +27,11 @@ const SECTIONS = [
           { stage: 'analysis', src: 'images/pushrod-bond-shear.png', alt: 'Adhesive shear along the 0.5 in bond at the 4005 N working load: about 5.3 MPa average, peaking near 10.2 MPa at both ends, below the 11.4 MPa elastic allowable' },
           { stage: 'analysis', src: 'images/pushrod-optimizer.png', alt: 'Earlier version of the MATLAB sizing plot: assembly mass over tube diameter and wall thickness with buckling, insert yield and glue shear boundaries' }
         ],
-        lead: 'A pushrod only carries axial load, which makes it the right first part to move from steel to a bonded carbon tube, and the testbed for the bonding process the team needs before full carbon fiber control arms. I sized the tube and its bonded 7075 inserts with a MATLAB optimizer, now in its third version, and wrote the whitepaper, assembly procedure and bill of materials the team builds and tests it from.',
+        lead: 'A pushrod only carries axial load, which makes it the right first part to move from steel to a bonded carbon tube, and the testbed for the bonding process the team needs before full carbon fiber control arms. I researched the bonded-joint theory, worked out the Volkersen shear-stress distribution and the critical bondline length by hand, then sized the tube and its bonded 7075 inserts with a MATLAB optimizer, now in its third version. I also wrote the whitepaper, assembly procedure and bill of materials the team builds and tests it from.',
         design: [
           'MATLAB optimizer (v3) sweeps tube OD 10\u201340 mm and wall 0.75\u20134 mm against Euler/Johnson buckling and a modified-Volkersen shear-lag model of the bond, at a 4005 N peak load with FOS 3.',
+          'Researched adhesive-bond theory and derived the bond model myself: the modified Volkersen shear-lag distribution along the overlap (peak \u03c4 \u2248 2\u00d7 the average, at both ends), from Jaeger & Wartzack (2022) tubular lap-joint work.',
+          'Calculated the critical bondline length: past \u03c1 = 5 (\u2248 17.4 mm / 0.69 in here) extra overlap adds almost no elastic capacity, so the 12.7 mm bond sits where length still helps. Corrected a transcription error in the paper\u2019s Eq. 5 and checked it against their Table 2 to within 0.5%.',
           'Lightest DragonPlate stock tube near the optimum: 0.750 \u00d7 0.810 in roll-wrapped twill, 480 mm long, \u2248 39 g for the tube and bonded insert zones.',
           '7075-T6 inserts sized for equal axial stiffness with the tube, which minimizes peak shear at the bond ends; 0.5 in overlap, under the 0.69 in critical length.',
           '3M DP420 rated at its 120 \u00b0F strength for Riverside heat; 0.008 in bondline set by glass beads and injected through a vent port.',
@@ -37,14 +39,14 @@ const SECTIONS = [
         ],
         functionality: [
           '77% lighter than the prior 168.8 g steel pushrod, lowering unsprung mass.',
-          'Rev D assembly procedure: helicoils before bond prep, wet or hood-extracted abrasion, Alodine conversion coat, glass beads at ~2 g per 3 oz of adhesive for a 0.0065\u20130.008 in gap.',
+          'Wrote the assembly and validation procedure (document revision D): helicoils before bond prep, wet or hood-extracted abrasion, Alodine conversion coat, glass beads at ~2 g per 3 oz of adhesive for a 0.0065\u20130.008 in gap.',
           'Insert pressed in one continuous motion with a squeeze-out ring check and a dial-indicator alignment check before gel; 24 h cure at 22 \u00b0C.',
           'Acceptance: Instron compression at 1\u20132 mm/min must reach FOS \u2265 2.5 against 4005 N with the tube buckling first and both joints intact.',
           'Bond coupon from the same batch is pulled against a ~2,800 lbf prediction; interfacial failure fails the surface prep regardless of load.',
           'Open margin called out: buckling FOS \u2248 2.5 at the assumed laminate modulus, with a 0.875 \u00d7 0.935 in fallback tube (+7 g).'
         ],
         labels: ['Design & analysis', 'Build, validation & results'],
-        tags: ['MATLAB', 'Bonded joints', 'CFRP', '7075-T6', '3M DP420', 'Shear-lag analysis', 'Test planning']
+        tags: ['MATLAB', 'Bonded joints', 'Volkersen shear lag', 'Critical bond length', 'CFRP', '7075-T6', '3M DP420', 'Test planning']
       },
       {
         id: 'controlarm',

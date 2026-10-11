@@ -27,13 +27,13 @@ const BOARDS = [
         title: 'Carbon fiber pushrod',
         tiles: [
           { kind: 'img', w: 6, h: 4, src: 'images/pushrod-design-space.png', open: 'pushrod', label: 'Sizing: mass vs tube diameter and wall', fit: 'contain', bg: '#0a0a0a' },
-          { kind: 'img', w: 6, h: 3, m: [4, 2], src: 'images/pushrod-bond-shear.png', open: 'pushrod', label: 'Bond: shear along the 0.5 in overlap', fit: 'contain', bg: '#0a0a0a' },
+          { kind: 'img', w: 6, h: 3, m: [4, 2], src: 'images/pushrod-bond-shear.png', open: 'pushrod', label: 'Volkersen shear distribution along the bond', fit: 'contain', bg: '#0a0a0a' },
           { kind: 'stat', w: 2, h: 1, figure: '≈ 39 g', label: 'tube + bonded inserts', accent: true, open: 'pushrod' },
           { kind: 'stat', w: 2, h: 1, figure: '77%', label: 'lighter than the 168.8 g steel part', open: 'pushrod' },
           { kind: 'stat', w: 2, h: 1, figure: '4005 N', label: 'peak load · FOS 3', open: 'pushrod' },
-          { kind: 'stat', w: 3, h: 1, figure: '0.008 in', label: 'bondline, set by glass beads', open: 'pushrod' },
+          { kind: 'stat', w: 3, h: 1, figure: '0.69 in', label: 'critical bond length · 0.5 in used', open: 'pushrod' },
           { kind: 'stat', w: 3, h: 1, figure: '≈ 2,800 lbf', label: 'predicted bond capacity per joint', open: 'pushrod' },
-          { kind: 'stat', w: 3, h: 1, figure: 'Rev D', label: 'assembly & validation procedure', open: 'pushrod' },
+          { kind: 'stat', w: 3, h: 1, figure: '10.2 MPa', label: 'peak bond shear · 11.4 allowable', open: 'pushrod' },
           { kind: 'stat', w: 3, h: 1, figure: 'FOS ≥ 2.5', label: 'Instron pass: tube buckles, joints intact', open: 'pushrod' },
           { kind: 'text', w: 12, h: 1, text: 'Status: prototype build — Instron compression test to failure next. Photos coming.', open: 'pushrod' }
         ]
