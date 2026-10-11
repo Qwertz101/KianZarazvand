@@ -14,18 +14,18 @@ const SECTIONS = [
     id: 'fsae',
     eyebrow: 'UCR Formula SAE · Highlander Racing',
     title: 'Formula SAE suspension',
-    intro: 'I joined Highlander Racing, UC Riverside\u2019s Formula SAE team, on the suspension sub-team. As an intern I completed a V6 engine CAD project and a control arm project; now, as an associate engineer, I run the carbon fiber pushrod project — R&D on carbon structures and adhesive bonding for future full-carbon control arms.',
+    intro: 'I joined Highlander Racing, UC Riverside\u2019s Formula SAE team, on the suspension sub-team. My intern intro project was a full carbon fiber suspension concept with billet steel parts \u2014 ambitious, but unvalidated. As an associate engineer I now run the carbon fiber pushrod: one bonded carbon part, sized, documented and tested properly, as the first real step toward a full carbon suspension.',
     projects: [
       {
         id: 'pushrod',
         eyebrow: 'UCR Formula SAE · Highlander Racing',
         title: 'Carbon fiber pushrod',
-        short: 'May 2026 — present · prototype build',
+        short: 'May 2026 — present · associate engineer',
         meta: 'Associate Engineer, Suspension · Highlander Racing FSAE · May 2026 — present · prototype, pre-test',
         media: [
           { stage: 'analysis', print: true, src: 'images/pushrod-design-space.png', alt: 'Design-space map of assembly mass over carbon tube outer diameter and wall thickness, with the elastic bond limit, the buckling limit at FOS times load, the grid optimum and DragonPlate stock sizes marked' },
           { stage: 'analysis', src: 'images/pushrod-bond-shear.png', alt: 'Adhesive shear along the 0.5 in bond at the 4005 N working load: about 5.3 MPa average, peaking near 10.2 MPa at both ends, below the 11.4 MPa elastic allowable' },
-          { stage: 'analysis', src: 'images/pushrod-optimizer.png', alt: 'First version of the MATLAB sizing plot: assembly mass over tube diameter and wall thickness with buckling, insert yield and glue shear boundaries' }
+          { stage: 'analysis', src: 'images/pushrod-optimizer.png', alt: 'Earlier version of the MATLAB sizing plot: assembly mass over tube diameter and wall thickness with buckling, insert yield and glue shear boundaries' }
         ],
         lead: 'A pushrod only carries axial load, which makes it the right first part to move from steel to a bonded carbon tube, and the testbed for the bonding process the team needs before full carbon fiber control arms. I sized the tube and its bonded 7075 inserts with a MATLAB optimizer, now in its third version, and wrote the whitepaper, assembly procedure and bill of materials the team builds and tests it from.',
         design: [
@@ -36,35 +36,35 @@ const SECTIONS = [
           'Helicoil-threaded inserts and LH/RH \u00bc-28 rod ends make the pushrod a length-adjustable turnbuckle.'
         ],
         functionality: [
-          '77% lighter than the prior steel pushrod (≈ 39 g vs 168.8 g), lowering unsprung mass.',
-          'Peak bond shear 10.2 MPa at working load against an 11.4 MPa elastic allowable; bond FOS \u2248 2.4.',
-          'Open margin called out in the design: buckling FOS \u2248 2.5 at the assumed laminate modulus. The compression test decides it; a 0.875 \u00d7 0.935 in tube passes every check at +7 g as the fallback.',
-          'Validation plan: Instron compression to failure, a bond-shear coupon, three strain gauges to measure the real laminate modulus, and temperature labels at the joint.',
-          'Documented as a design whitepaper, a Rev D assembly and validation procedure, and a bill of materials.'
+          '77% lighter than the prior 168.8 g steel pushrod, lowering unsprung mass.',
+          'Rev D assembly procedure: helicoils before bond prep, wet or hood-extracted abrasion, Alodine conversion coat, glass beads at ~2 g per 3 oz of adhesive for a 0.0065\u20130.008 in gap.',
+          'Insert pressed in one continuous motion with a squeeze-out ring check and a dial-indicator alignment check before gel; 24 h cure at 22 \u00b0C.',
+          'Acceptance: Instron compression at 1\u20132 mm/min must reach FOS \u2265 2.5 against 4005 N with the tube buckling first and both joints intact.',
+          'Bond coupon from the same batch is pulled against a ~2,800 lbf prediction; interfacial failure fails the surface prep regardless of load.',
+          'Open margin called out: buckling FOS \u2248 2.5 at the assumed laminate modulus, with a 0.875 \u00d7 0.935 in fallback tube (+7 g).'
         ],
+        labels: ['Design & analysis', 'Build, validation & results'],
         tags: ['MATLAB', 'Bonded joints', 'CFRP', '7075-T6', '3M DP420', 'Shear-lag analysis', 'Test planning']
       },
       {
         id: 'controlarm',
-        eyebrow: 'UCR Formula SAE',
-        title: 'Carbon fiber control arm',
-        short: 'Jan 2026 · intro project',
-        meta: 'Suspension Intern · January 2026',
+        eyebrow: 'UCR Formula SAE · Intro project',
+        title: 'Full carbon suspension concept',
+        short: 'Jan 2026 · intern intro project · concept',
+        meta: 'Suspension Intern · January 2026 · concept study, not validated or built',
         media: [
-          { stage: 'cad', src: 'images/control-arm.jpg', alt: 'CAD render of a carbon fiber A-arm mounted to the tubular chassis with a billet upright bracket' },
-          { stage: 'cad', src: 'images/control-arm-closeup.jpg', alt: 'Close-up of the machined steel insert joining two carbon fiber tubes with a rod end' }
+          { stage: 'cad', src: 'images/control-arm.jpg', alt: 'Concept CAD of a carbon fiber A-arm mounted to the tubular chassis with a billet upright bracket' },
+          { stage: 'cad', src: 'images/control-arm-closeup.jpg', alt: 'Concept close-up of a billet steel insert joining two carbon fiber tubes with a rod end' }
         ],
-        lead: 'Suspension for a Formula Student car has to be light enough to matter and stiff enough to survive a season of testing. This intro project took the control arm from skeleton model through FEA to a preliminary carbon fiber design bonded into billet inserts.',
+        lead: 'My intern intro project: a first pass at a full carbon fiber suspension, with carbon tube arms joined by billet steel inserts and tabs. It was a CAD and hand-calculation concept \u2014 ambitious, but never validated or built. The current pushrod project is the realistic step toward it: prove one bonded carbon part properly first.',
         design: [
-          'Skeleton modeling, FEA simulations and stress calculations with Design for Manufacturability in mind.',
-          'Steel tabs to attach to the chassis.',
-          'Billet steel insert bonded into the carbon tubes.',
-          'Epoxy tube inserts, ball joints, rod ends and welded joints for a precise, configurable yet simple design.',
-          'Iterated on billet-machined components, sheet-metal structures and metal plates to cut weight and cost.'
+          'Skeleton modeling, FEA and stress calculations with Design for Manufacturability in mind.',
+          'Billet steel inserts bonded into carbon tubes, with steel tabs to the chassis.',
+          'Ball joints, rod ends and welded joints for a configurable, adjustable layout.'
         ],
         functionality: [
-          'Preliminary carbon fiber suspension design for the car.',
-          'Higher stiffness than the tubular steel arms it replaces.'
+          'Concept only: not validated, tested or built.',
+          'Showed that the bonded carbon-to-metal joint is the thing to prove first, which is what the pushrod project does.'
         ],
         tags: ['SolidWorks', 'FEA', 'Carbon fiber', 'DFM', 'Billet machining']
       }
