@@ -14,39 +14,52 @@ const SECTIONS = [
     id: 'fsae',
     eyebrow: 'UCR Formula SAE · Highlander Racing',
     title: 'Formula SAE suspension',
-    intro: 'I joined Highlander Racing, UC Riverside\u2019s Formula SAE team, on the suspension sub-team. My intern intro project was a full carbon fiber suspension concept with billet steel parts \u2014 ambitious, but unvalidated. As an associate engineer I now run the carbon fiber pushrod: one bonded carbon part, sized, documented and tested properly, as the first real step toward a full carbon suspension.',
+    intro: 'I joined Highlander Racing, UC Riverside\u2019s Formula SAE team, on the suspension sub-team. My intern intro project was a full carbon fiber suspension concept with billet steel parts \u2014 ambitious, but unvalidated. As an associate engineer I now design the carbon fiber pushrods: bonded carbon parts, sized, documented and tested properly, as the first real step toward a full carbon suspension.',
     projects: [
       {
         id: 'pushrod',
         eyebrow: 'UCR Formula SAE · Highlander Racing',
-        title: 'Carbon fiber pushrod',
+        title: 'Carbon fiber pushrods',
         short: 'May 2026 — present · associate engineer',
-        meta: 'Associate Engineer, Suspension · Highlander Racing FSAE · May 2026 — present · prototype, pre-test',
+        meta: 'Associate Engineer, Suspension · Highlander Racing FSAE · May 2026 — present · critical design review, pre-build',
         media: [
-          { stage: 'analysis', print: true, src: 'images/pushrod-design-space.png', alt: 'Design-space map of assembly mass over carbon tube outer diameter and wall thickness, with the elastic bond limit, the buckling limit at FOS times load, the grid optimum and DragonPlate stock sizes marked' },
-          { stage: 'analysis', src: 'images/pushrod-bond-shear.png', alt: 'Adhesive shear along the 0.5 in bond at the 4005 N working load: about 5.3 MPa average, peaking near 10.2 MPa at both ends, below the 11.4 MPa elastic allowable' },
-          { stage: 'analysis', src: 'images/pushrod-optimizer.png', alt: 'Earlier version of the MATLAB sizing plot: assembly mass over tube diameter and wall thickness with buckling, insert yield and glue shear boundaries' }
+          { stage: 'analysis', print: true, src: 'images/pushrod-shear-profile.png', alt: 'Shear along the bond divided by average shear for three insert-to-tube stiffness ratios: the stress peaks at both ends and nearly vanishes in the middle' },
+          { stage: 'analysis', src: 'images/pushrod-critical-length.png', alt: 'Failure load against bond length per end for front and rear pushrods, flattening past the critical length of about 27.5 mm' },
+          { stage: 'analysis', src: 'images/pushrod-stiffness-ratio.png', alt: 'Peak over average shear against insert-to-tube stiffness ratio, with the front and rear designs marked near psi 0.55' },
+          { stage: 'analysis', src: 'images/pushrod-flange-share.png', alt: 'Adhesive shear along the front bond with no flange load, 20 percent and 50 percent flange share' },
+          { stage: 'analysis', src: 'images/pushrod-fea-5050.jpg', alt: 'FEA stress plot of the front flanged insert with load split 50 percent flange and 50 percent shear' },
+          { stage: 'analysis', src: 'images/pushrod-fea-8020.jpg', alt: 'FEA stress plot of the front flanged insert with load split 80 percent shear and 20 percent flange' },
+          { stage: 'analysis', src: 'images/pushrod-mass-savings.png', alt: 'Bar chart of pushrod mass, 4130 steel against carbon, front and rear' },
+          { stage: 'cad', print: true, src: 'images/pushrod-front-on-car.jpg', alt: 'CAD of the carbon fiber front pushrod on the car' },
+          { stage: 'cad', src: 'images/pushrod-front-in-chassis.jpg', alt: 'CAD of the front pushrod in the chassis, with the rest of the car shown ghosted' },
+          { stage: 'cad', src: 'images/pushrod-front-rod-end.jpg', alt: 'CAD close-up of the front pushrod with a flanged aluminum insert, jam nut and rod end' },
+          { stage: 'cad', src: 'images/pushrod-front-section.jpg', alt: 'Section view of the front pushrod showing the bonded insert and rod end inside the carbon tube' },
+          { stage: 'cad', src: 'images/pushrod-rear-subassembly.jpg', alt: 'CAD of the rear suspension sub-assembly with the carbon fiber pushrod' },
+          { stage: 'cad', src: 'images/pushrod-rear-assembly.jpg', alt: 'CAD of the full rear pushrod with a rod end at each end' },
+          { stage: 'cad', src: 'images/pushrod-rear-closeup.jpg', alt: 'CAD close-up of the rear pushrod end, insert flange, jam nut and rod end' },
+          { stage: 'cad', src: 'images/pushrod-rear-section.jpg', alt: 'Section view of the rear pushrod showing the bonded insert and rod end' }
         ],
-        lead: 'A pushrod only carries axial load, which makes it the right first part to move from steel to a bonded carbon tube, and the testbed for the bonding process the team needs before full carbon fiber control arms. I researched the bonded-joint theory, worked out the Volkersen shear-stress distribution and the critical bondline length by hand, then sized the tube and its bonded 7075 inserts with a MATLAB optimizer, now in its third version. I also wrote the whitepaper, assembly procedure and bill of materials the team builds and tests it from.',
+        lead: 'Pushrods only carry axial load, which makes them the right first parts to move from steel to bonded carbon tube, and the testbed for the bonding process the team needs before a full carbon suspension. I researched the bonded-joint theory, worked out the Volkersen shear-stress distribution and the critical bondline length, then sized the front and rear tubes and their flanged 7075 inserts, ran the hand calculations and FEA, and presented the design at critical design review.',
         design: [
-          'MATLAB optimizer (v3) sweeps tube OD 10\u201340 mm and wall 0.75\u20134 mm against Euler/Johnson buckling and a modified-Volkersen shear-lag model of the bond, at a 4005 N peak load with FOS 3.',
-          'Researched adhesive-bond theory and derived the bond model myself: the modified Volkersen shear-lag distribution along the overlap (peak \u03c4 \u2248 2\u00d7 the average, at both ends), from Jaeger & Wartzack (2022) tubular lap-joint work.',
-          'Calculated the critical bondline length: past \u03c1 = 5 (\u2248 17.4 mm / 0.69 in here) extra overlap adds almost no elastic capacity, so the 12.7 mm bond sits where length still helps. Corrected a transcription error in the paper\u2019s Eq. 5 and checked it against their Table 2 to within 0.5%.',
-          'Lightest DragonPlate stock tube near the optimum: 0.750 \u00d7 0.810 in roll-wrapped twill, 480 mm long, \u2248 39 g for the tube and bonded insert zones.',
-          '7075-T6 inserts sized for equal axial stiffness with the tube, which minimizes peak shear at the bond ends; 0.5 in overlap, under the 0.69 in critical length.',
-          '3M DP420 rated at its 120 \u00b0F strength for Riverside heat; 0.008 in bondline set by glass beads and injected through a vent port.',
-          'Helicoil-threaded inserts and LH/RH \u00bc-28 rod ends make the pushrod a length-adjustable turnbuckle.'
+          'Front: 0.625 × 0.750 in DragonPlate roll-wrapped twill tube at 4005 N peak load. Rear: 0.500 × 0.625 in at 5387 N. Both have a 1/16 in wall, with 7075-T6 inserts (503 MPa yield) and Loctite EA E-120HP epoxy.',
+          'Roll-wrapped over pultruded: the 0/90 woven layers resist impact, splitting and torsion while the 0° unidirectional plies carry the axial load. Conservative laminate modulus of 11 msi from a rule-of-mixtures hand calculation.',
+          'Researched adhesive-bond theory and worked through the modified Volkersen shear-lag solution for tubular lap joints (Jaeger & Wartzack, 2022): shear peaks at both bond ends at 3.2–3.3× the average, and an equal-stiffness (ψ = 1) insert and tube would equalize those peaks.',
+          'Calculated the critical bondline length l_crit = 5·√(E₁A₁t / ((1+ψ)G·w)): 27.6 mm front, 27.4 mm rear. Past it the middle of the bond carries almost no load, so extra length only adds mass.',
+          'Moved the threads out of the bond zone so the insert keeps its full 1/16 in wall there (ψ = 0.56 front, 0.53 rear), and bounded the flange’s share of the load at 20–50% with FEA.',
+          'Buckling by hand: Euler on the front (14.5 kN critical load, FOS 3.6) and Johnson on the rear (25.9 kN, FOS 4.8), with pin-ended rod ends.',
+          'Aurora XAM-4 / XAB-4 rod ends on 5/16-24 threads, left- and right-hand, make each pushrod a length-adjustable turnbuckle locked with jam nuts. Helicoils make worn threads replaceable.'
         ],
         functionality: [
-          '77% lighter than the prior 168.8 g steel pushrod, lowering unsprung mass.',
-          'Wrote the assembly and validation procedure: helicoils before bond prep, wet or hood-extracted abrasion, Alodine conversion coat, glass beads at ~2 g per 3 oz of adhesive for a 0.0065\u20130.008 in gap.',
-          'Insert pressed in one continuous motion with a squeeze-out ring check and a dial-indicator alignment check before gel; 24 h cure at 22 \u00b0C.',
-          'Acceptance: Instron compression at 1\u20132 mm/min must reach FOS \u2265 2.5 against 4005 N with the tube buckling first and both joints intact.',
-          'Bond coupon from the same batch is pulled against a ~2,800 lbf prediction; interfacial failure fails the surface prep regardless of load.',
-          'Open margin called out: buckling FOS \u2248 2.5 at the assumed laminate modulus, with a 0.875 \u00d7 0.935 in fallback tube (+7 g).'
+          'Four pushrods save 314 g per car against 4130 steel: front 70.5 g (−99 g, 59% lighter), rear 34.4 g (−58 g, 63% lighter), lowering unsprung mass.',
+          'Bond FOS 4.8 front and 2.8 rear, assuming the flange carries no load; a 20–50% flange share would raise the rear to 4.0–5.3. Required FOS: 3 on peak bond shear, 2 on buckling.',
+          'FEA on the front insert stays under 67 MPa at a 50/50 flange/shear split (FOS above 7.5 against yield) and near 50 MPa peak at 80/20.',
+          'No carbon touches aluminum: an epoxy film on every interface, with glass beads holding the bondline, also takes up the 7075 versus carbon thermal expansion mismatch.',
+          'Tubes and carbon tooling cost about $472 for the full set, with the tooling reused across seasons.',
+          'Open items called out in the review: laminate modulus and strength are working assumptions until coupons are tested, and the thermal mismatch at the 65 °C post-cure is not yet analyzed.',
+          'Assembly and validation procedure written alongside: surface prep, helicoils before bonding, dial-indicator alignment, then Instron compression and bond coupons.'
         ],
         labels: ['Design & analysis', 'Build, validation & results'],
-        tags: ['MATLAB', 'Bonded joints', 'Volkersen shear lag', 'Critical bond length', 'CFRP', '7075-T6', '3M DP420', 'Test planning']
+        tags: ['SolidWorks', 'FEA', 'Bonded joints', 'Volkersen shear lag', 'Critical bond length', 'CFRP', '7075-T6', 'Loctite EA E-120HP', 'Hand calculations', 'Design review']
       },
       {
         id: 'controlarm',
@@ -58,7 +71,7 @@ const SECTIONS = [
           { stage: 'cad', src: 'images/control-arm.jpg', alt: 'Concept CAD of a carbon fiber A-arm mounted to the tubular chassis with a billet upright bracket' },
           { stage: 'cad', src: 'images/control-arm-closeup.jpg', alt: 'Concept close-up of a billet steel insert joining two carbon fiber tubes with a rod end' }
         ],
-        lead: 'My intern intro project: a first pass at a full carbon fiber suspension, with carbon tube arms joined by billet steel inserts and tabs. It was a CAD and hand-calculation concept \u2014 ambitious, but never validated or built. The current pushrod project is the realistic step toward it: prove one bonded carbon part properly first.',
+        lead: 'My intern intro project: a first pass at a full carbon fiber suspension, with carbon tube arms joined by billet steel inserts and tabs. It was a CAD and hand-calculation concept \u2014 ambitious, but never validated or built. The current pushrod project is the realistic step toward it: prove bonded carbon parts properly first.',
         design: [
           'Skeleton modeling, FEA and stress calculations with Design for Manufacturability in mind.',
           'Billet steel inserts bonded into carbon tubes, with steel tabs to the chassis.',
