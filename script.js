@@ -529,14 +529,9 @@ function openSheet(id) {
   showMedia(0);
 
   if (closing) { closing.cancel(); closing = null; scrim.getAnimations().forEach((a) => a.cancel()); } // reopening mid-exit: grab it back
-  // Anchor the sheet to the tile that opened it, so it grows from its source.
+  // Modals stay centered (transform-origin: center): they sit in the middle of the viewport, not beside a trigger.
   scrim.hidden = false;
-  const src = sourceEl || lastFocused; sourceEl = null;
-  if (src && src.getBoundingClientRect) {
-    const t = src.getBoundingClientRect(), r = sheet.getBoundingClientRect();
-    const clamp = (v, max) => Math.max(0, Math.min(max, v));
-    sheet.style.transformOrigin = clamp(t.left + t.width / 2 - r.left, r.width) + 'px ' + clamp(t.top + t.height / 2 - r.top, r.height) + 'px';
-  }
+  sourceEl = null;
   sheet.style.animation = 'none'; void sheet.offsetWidth; sheet.style.animation = '';
   document.body.style.overflow = 'hidden';
   sheet.scrollTop = 0;
@@ -544,7 +539,7 @@ function openSheet(id) {
 }
 
 let closing = null;
-// Exit along the entry path: shrink back toward the source tile and fade.
+// Exit mirrors the entry (scale + fade) but faster than it: 160 ms out vs 240 ms in.
 // Keyboard (Escape) closes instantly; it shouldn't wait on motion.
 function closeSheet(instant) {
   if (scrim.hidden || closing) return;
