@@ -1,5 +1,7 @@
 /* Vault — design tokens */
 :root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1); /* strong ease-out for UI */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --bg-000: #000000;
   --bg-100: #0a0a0a;
   --bg-200: #131313;
@@ -118,7 +120,7 @@ a { color: var(--accent-100); }
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-md);
   white-space: nowrap;
-  transition: background 120ms ease-out, color 120ms ease-out;
+  transition: background 120ms var(--ease-out), color 120ms var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) { .nav__link:hover { color: var(--ink-100); background: var(--bg-300); } }
 .nav__link[aria-current="true"] { color: var(--ink-100); background: var(--bg-200); }
@@ -208,7 +210,7 @@ a { color: var(--accent-100); }
   border: 1px solid var(--line-200);
   border-radius: var(--radius-md);
   background: var(--bg-200);
-  transition: background 120ms ease-out, border-color 120ms ease-out;
+  transition: background 120ms var(--ease-out), border-color 120ms var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) { .btn:hover { color: var(--ink-100); background: var(--bg-300); border-color: var(--line-300); } }
 .btn--accent { background: var(--accent-100); border-color: var(--accent-100); color: var(--on-accent); }
@@ -250,7 +252,7 @@ a { color: var(--accent-100); }
   margin: 0 8px;
   border-radius: 2px;
   background: var(--line-200);
-  transition: background 200ms ease-out;
+  transition: background 200ms var(--ease-out);
 }
 .route__stops li.is-passed + li.is-passed::before { background: var(--accent-100); }
 .route__stop {
@@ -262,7 +264,7 @@ a { color: var(--accent-100); }
   color: var(--ink-300);
   text-decoration: none;
   white-space: nowrap;
-  transition: color 160ms ease-out;
+  transition: color 160ms var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) { .route__stop:hover { color: var(--ink-100); } }
 .route__dot {
@@ -272,7 +274,7 @@ a { color: var(--accent-100); }
   border-radius: var(--radius-full);
   border: 2px solid var(--line-300);
   background: var(--bg-000);
-  transition: border-color 160ms ease-out, background 160ms ease-out, box-shadow 160ms ease-out;
+  transition: border-color 160ms var(--ease-out), background 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
 }
 .is-passed .route__dot { border-color: var(--accent-100); background: var(--accent-100); }
 .route__stop[aria-current] { color: var(--ink-100); }
@@ -325,7 +327,7 @@ a { color: var(--accent-100); }
   text-align: left;
   padding: 0;
   margin: 0;
-  transition: border-color 120ms ease-out, transform 160ms ease-out;
+  transition: border-color 120ms var(--ease-out), transform 160ms var(--ease-out);
 }
 button.tile { cursor: pointer; }
 @media (hover: hover) and (pointer: fine) { button.tile:hover { border-color: var(--line-300); transform: translateY(-1px); } }
@@ -467,6 +469,8 @@ button.tile:active { transform: none; }
   z-index: 50;
 }
 .scrim[hidden] { display: none; }
+.scrim { animation: scrim-in 200ms var(--ease-out); }
+@keyframes scrim-in { from { opacity: 0; } }
 
 .sheet {
   position: relative;
@@ -480,15 +484,18 @@ button.tile:active { transform: none; }
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-pop);
   padding: 40px;
-  animation: pop 200ms ease-out;
+  animation: pop 240ms var(--ease-out);
+  transform-origin: center;
 }
+@keyframes fade { from { opacity: 0; } }
 @keyframes pop {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(6px) scale(0.97); }
   to { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .sheet { animation: none; }
+  .sheet { animation: fade 160ms ease; } /* keep the fade, drop the movement */
+  .scrim { animation: none; }
   .tile, .nav__link, .route__dot, .route__stop, .route__stops li::before { transition: none; }
   .intro__scroll .icon { animation: none; }
 }
@@ -534,7 +541,7 @@ button.tile:active { transform: none; }
   overflow: hidden;
   cursor: pointer;
   opacity: 0.6;
-  transition: opacity 120ms ease-out, border-color 120ms ease-out;
+  transition: opacity 120ms var(--ease-out), border-color 120ms var(--ease-out);
 }
 .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .thumb .media__play { width: 24px; height: 24px; padding: 6px 4px 6px 7px; }
@@ -740,7 +747,7 @@ button.tile:active { transform: none; }
   border: 2px solid var(--line-300);
   background: var(--bg-100);
   margin-bottom: 4px;
-  transition: background 160ms ease-out, border-color 160ms ease-out, box-shadow 160ms ease-out;
+  transition: background 160ms var(--ease-out), border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
 }
 .is-passed .lineage__dot { border-color: var(--accent-100); background: var(--accent-100); }
 .lineage__node[aria-selected="true"] { color: var(--ink-100); background: var(--bg-200); }
@@ -800,7 +807,7 @@ button.tile:active { transform: none; }
 .lineage__matrix tbody th { text-align: left; font-weight: 600; color: var(--ink-200); white-space: nowrap; }
 .lineage__matrix tbody th .mono { color: var(--ink-400); margin-right: 4px; }
 .lineage__matrix td { text-align: center; }
-.lineage__matrix tbody tr { cursor: pointer; transition: background 120ms ease-out; }
+.lineage__matrix tbody tr { cursor: pointer; transition: background 120ms var(--ease-out); }
 @media (hover: hover) and (pointer: fine) { .lineage__matrix tbody tr:hover { background: var(--bg-200); } }
 .lineage__matrix tbody tr.is-active { background: var(--bg-200); }
 .lineage__matrix tbody tr.is-active th { color: var(--ink-100); }
@@ -899,7 +906,7 @@ button, .btn, .nav__cta, .nav__brand, .route__stop, .thumb, .lineage__node, .lin
 button.tile img, button.tile video, .thumb img { -webkit-touch-callout: none; }
 
 /* Press feedback on finger-down, for every input type. */
-.btn, .nav__cta, .sheet__close, .thumb, .lineage__stage, a.tile--link { transition: transform 120ms ease-out, background-color 120ms ease-out, border-color 120ms ease-out; }
+.btn, .nav__cta, .sheet__close, .thumb, .lineage__stage, a.tile--link { transition: transform 120ms var(--ease-out), background-color 120ms var(--ease-out), border-color 120ms var(--ease-out); }
 button.tile:active, a.tile--link:active { transform: scale(0.985); border-color: var(--line-300); }
 .btn:active, .nav__cta:active, .sheet__close:active, .lineage__stage:active { transform: scale(0.97); background: var(--bg-300); }
 .btn--accent:active { background: var(--accent-200); }
