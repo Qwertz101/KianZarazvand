@@ -465,6 +465,7 @@ const closeBtn = document.getElementById('sheet-close');
 const sheetMedia = document.getElementById('sheet-media');
 const sheetThumbs = document.getElementById('sheet-thumbs');
 let lastFocused = null;
+let sourceEl = null; // element that opened the sheet, for origin-aware motion
 let current = null;
 let currentIndex = 0;
 
@@ -527,13 +528,39 @@ function openSheet(id) {
   document.getElementById('sheet-count').textContent = media.length > 1 ? media.length + ' items · ← → to browse' : '';
   showMedia(0);
 
+  if (closing) { closing.cancel(); closing = null; scrim.getAnimations().forEach((a) => a.cancel()); } // reopening mid-exit: grab it back
+  // Anchor the sheet to the tile that opened it, so it grows from its source.
   scrim.hidden = false;
+  const src = sourceEl || lastFocused; sourceEl = null;
+  if (src && src.getBoundingClientRect) {
+    const t = src.getBoundingClientRect(), r = sheet.getBoundingClientRect();
+    const clamp = (v, max) => Math.max(0, Math.min(max, v));
+    sheet.style.transformOrigin = clamp(t.left + t.width / 2 - r.left, r.width) + 'px ' + clamp(t.top + t.height / 2 - r.top, r.height) + 'px';
+  }
+  sheet.style.animation = 'none'; void sheet.offsetWidth; sheet.style.animation = '';
   document.body.style.overflow = 'hidden';
   sheet.scrollTop = 0;
   closeBtn.focus();
 }
 
-function closeSheet() {
+let closing = null;
+// Exit along the entry path: shrink back toward the source tile and fade.
+// Keyboard (Escape) closes instantly; it shouldn't wait on motion.
+function closeSheet(instant) {
+  if (scrim.hidden || closing) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (instant === true || !sheet.animate) return finishClose();
+  const opts = { duration: 160, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'forwards' };
+  closing = sheet.animate(reduce ? [{ opacity: 1 }, { opacity: 0 }]
+    : [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(0.96)' }], opts);
+  scrim.animate([{ opacity: 1 }, { opacity: 0 }], opts);
+  const done = () => { if (!closing) return; closing = null; finishClose(); };
+  closing.onfinish = done;
+  setTimeout(done, 220); // backstop if the animation clock is paused (background tab)
+}
+function finishClose() {
+  sheet.getAnimations().forEach((a) => a.cancel());
+  scrim.getAnimations().forEach((a) => a.cancel());
   sheetMedia.innerHTML = '';
   current = null;
   scrim.hidden = true;
@@ -545,15 +572,15 @@ document.addEventListener('click', (ev) => {
   const thumb = ev.target.closest('.thumb[data-index]');
   if (thumb) { showMedia(Number(thumb.dataset.index)); return; }
   const trigger = ev.target.closest('[data-open]');
-  if (trigger) { openSheet(trigger.dataset.open); return; }
+  if (trigger) { sourceEl = trigger; openSheet(trigger.dataset.open); return; }
   if (ev.target === scrim) closeSheet();
 });
 
-closeBtn.addEventListener('click', closeSheet);
+closeBtn.addEventListener('click', () => closeSheet());
 
 document.addEventListener('keydown', (ev) => {
   if (scrim.hidden) return;
-  if (ev.key === 'Escape') closeSheet();
+  if (ev.key === 'Escape') closeSheet(true);
   if (ev.target.tagName === 'VIDEO') return;
   if (ev.key === 'ArrowRight') showMedia(currentIndex + 1);
   if (ev.key === 'ArrowLeft') showMedia(currentIndex - 1);
@@ -602,3 +629,10 @@ window.addEventListener('resize', () => { currentStop = -1; checkOverflow(); upd
 checkOverflow();
 document.fonts && document.fonts.ready.then(checkOverflow);
 updateRoute();
+
+// Scroll edge: the nav only shows its separating edge once content is under it.
+(() => {
+  const nav = document.querySelector('.nav');
+  const set = () => nav.classList.toggle('nav--scrolled', scrollY > 4);
+  addEventListener('scroll', set, { passive: true }); set();
+})();
